@@ -12,9 +12,9 @@ export const MyPosts = () => {
                 <button>Remove</button>
             </div>
             <div className={style.posts}>
-                <Post />
-                <Post />
-                <Post />
+                <Post message="Hi, how are you?" likesCounts={15}/>
+                <Post message="It is my first post" likesCounts={20}/>
+                <Post message="Hello, friend!" likesCounts={5}/>
             </div>
         </div>
     );
