@@ -4,9 +4,9 @@ import { MyPosts } from './myPosts/MyPosts';
 
 export const Profile = () => {
     return (
-        <div className={style.content}>
+        <div>
             <div>
-                <img src='https://sun9-28.userapi.com/impg/jpdJwKPD8UXxz8OuQFDJmsMafKUGlDAYAyB6IA/0pe2_tAcCmw.jpg?size=2560x1440&quality=96&sign=45ae858cb2b319bc35afc8fb90971ed9&type=album' alt='bg-piggy' />
+                <img src='https://sun9-12.userapi.com/impg/UvVPRI_LiSEp-kOwFQlLDeH37AOhq36mJVSFKg/QKcTyKChz3g.jpg?size=1920x1080&quality=96&sign=a11517a8914c7e7ba6a08784dca2abfe&type=album' alt='love' />
             </div>
             <div>
                 avatar+description
