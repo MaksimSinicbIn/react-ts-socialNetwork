@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 type DialogItemPropsType = {
     name: string
-    id: string 
+    id: number 
 }
 
 type MessagePropsType = {
@@ -33,21 +33,36 @@ const Message = ({message}: MessagePropsType) => {
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
+
+    let dialogsData = [
+        {id: 1, name: "Dimych"},
+        {id: 2, name: "Andrey"},
+        {id: 3, name: "Sveta"},
+        {id: 4, name: "Sasha"},
+        {id: 5, name: "Viktor"},
+        {id: 6, name: "Valera"}
+    ]
+
+    let messagesData = [
+        {id: 1, message: "Hi"},
+        {id: 2, message: "How is your it-kamasutra?"},
+        {id: 3, message: "Yo"},
+        {id: 4, message: "Yo"},
+        {id: 5, message: "Yo"},
+    ]
+
+    let dialogsElements = dialogsData.map( dialog => <DialogItem id={dialog.id} name={dialog.name}/> );
+
+    let messagesElements = messagesData.map( message => <Message message={message.message} /> );
+
     return (
         <div>
             <div className={style.dialogs}>
                 <div className={style.dialogsItems}>
-                    <DialogItem id="1" name="Dimych"/>
-                    <DialogItem id="2" name="Andrey"/>
-                    <DialogItem id="3" name="Sveta"/>
-                    <DialogItem id="4" name="Sasha"/>
-                    <DialogItem id="5" name="Viktor"/>
-                    <DialogItem id="6" name="Valera"/>
+                    {dialogsElements}
                 </div>
                 <div className={style.messages}>
-                    <Message message="Hi" />
-                    <Message message="How is your it-kamasutra?" />
-                    <Message message="Yo" />
+                    {messagesElements}
                 </div>
             </div>
         </div>
