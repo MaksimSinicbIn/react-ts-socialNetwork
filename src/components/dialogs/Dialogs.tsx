@@ -2,8 +2,34 @@ import React from 'react';
 import style from './Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
 
+type DialogItemPropsType = {
+    name: string
+    id: string 
+}
+
+type MessagePropsType = {
+    message: string
+}
+
 type DialogsPropsType = {
 
+}
+
+const DialogItem = ({name, id}: DialogItemPropsType) => {
+
+    let path = "/dialogs/" + id;
+
+    return (
+        <div className={style.dialog + ' ' + style.active}>
+            <NavLink to={path}>{name}</NavLink>
+        </div>
+    );
+};
+
+const Message = ({message}: MessagePropsType) => {
+    return(
+        <div className={style.message}>{message}</div>
+    )
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -11,30 +37,17 @@ export const Dialogs = (props: DialogsPropsType) => {
         <div>
             <div className={style.dialogs}>
                 <div className={style.dialogsItems}>
-                    <div className={style.dialog + ' ' + style.active}>
-                        <NavLink to="/dialogs/1">Dimych</NavLink>
-                    </div>
-                    <div className={style.dialog}>
-                    <NavLink to="/dialogs/2">Andrey</NavLink>
-                    </div>
-                    <div className={style.dialog}>
-                    <NavLink to="/dialogs/3">Sveta</NavLink>
-                    </div>
-                    <div className={style.dialog}>
-                    <NavLink to="/dialogs/4">Sasha</NavLink>
-                    </div>
-                    <div className={style.dialog}>
-                    <NavLink to="/dialogs/5">Viktor</NavLink>
-                    </div>
-                    <div className={style.dialog}>
-                    <NavLink to="/dialogs/6">Valera</NavLink>
-                    </div>
-                
+                    <DialogItem id="1" name="Dimych"/>
+                    <DialogItem id="2" name="Andrey"/>
+                    <DialogItem id="3" name="Sveta"/>
+                    <DialogItem id="4" name="Sasha"/>
+                    <DialogItem id="5" name="Viktor"/>
+                    <DialogItem id="6" name="Valera"/>
                 </div>
                 <div className={style.messages}>
-                    <div className={style.message}>Hi</div>
-                    <div className={style.message}>How is your it-kamasutra?</div>
-                    <div className={style.message}>Yo</div>
+                    <Message message="Hi" />
+                    <Message message="How is your it-kamasutra?" />
+                    <Message message="Yo" />
                 </div>
             </div>
         </div>
