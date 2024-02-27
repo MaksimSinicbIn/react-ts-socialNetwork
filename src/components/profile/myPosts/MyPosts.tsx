@@ -7,9 +7,9 @@ type MyPostsPropsType = {
     posts: Array<PostType>
 }
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = ({posts}: MyPostsPropsType) => {
 
-    let postsElements = props.posts.map( post => <Post message={post.post} likesCounts={post.likesCount} /> );
+    let postsElements = posts.map( p => <Post key={p.id} id={p.id} message={p.post} likesCounts={p.likesCount} /> );
 
     return (
         <div className={style.postsBlock}>

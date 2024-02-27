@@ -8,11 +8,11 @@ type ProfilePropsType = {
     profilePage: ProfilePageType
 }
 
-export const Profile = (props: ProfilePropsType) => {
+export const Profile = ({profilePage}: ProfilePropsType) => {
     return (
         <div>
             <ProfileInfo />
-            <MyPosts posts={props.profilePage.posts} />
+            <MyPosts posts={profilePage.posts} />
         </div>
     );
 };
