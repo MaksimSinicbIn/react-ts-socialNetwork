@@ -1,0 +1,12 @@
+.friend {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.friendAvatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}

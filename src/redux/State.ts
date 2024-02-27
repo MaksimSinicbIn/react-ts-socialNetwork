@@ -1,6 +1,7 @@
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebar: SidebarType
 }
 
 export type DialogsPageType = {
@@ -10,6 +11,10 @@ export type DialogsPageType = {
 
 export type ProfilePageType = {
     posts: Array<PostType>
+}
+
+export type SidebarType = {
+    friends: Array<FriendsType>
 }
 
 export type PostType = {
@@ -26,6 +31,12 @@ export type DialogType = {
 export type MessageType = {
     id: number
     message: string
+}
+
+export type FriendsType = {
+    id: number
+    name: string
+    avatar: string
 }
 
 export let state: RootStateType = {
@@ -51,6 +62,13 @@ export let state: RootStateType = {
             { id: 3, message: "Yo" },
             { id: 4, message: "Yo" },
             { id: 5, message: "Yo" },
+        ]
+    },
+    sidebar: {
+        friends: [
+            { id: 1, name: "Dimych", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'},
+            { id: 2, name: "Andrey", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'},
+            { id: 3, name: "Sveta", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'}
         ]
     }
 } 

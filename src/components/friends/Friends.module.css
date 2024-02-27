@@ -1,0 +1,7 @@
+.friends {
+    display: grid;
+    grid-area: f;
+    background-color: rgb(207, 121, 224);
+    border-radius: 20px;
+    padding: 10px;
+}
