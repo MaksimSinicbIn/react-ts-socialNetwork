@@ -1,3 +1,5 @@
-.descriptionBlock {
-    
+.profileInfoImg {
+    height: 250px;
+    width: max-content;
+    object-fit: cover;
 }
