@@ -16,7 +16,7 @@
     "f c ."
     ". c .";
     grid-template-columns: 2fr 10fr;
-    grid-template-rows: repeat(3, 1fr);;
+    grid-template-rows: auto auto;
     grid-gap: 10px;
     margin-top: 10px;
 }
