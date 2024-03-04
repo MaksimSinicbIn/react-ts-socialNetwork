@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: green;
+    background-color: rgb(188, 197, 209);
 }
 
 .header img {

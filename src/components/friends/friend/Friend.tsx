@@ -9,9 +9,9 @@ type FriendPropsType = {
 
 export const Friend = ({name, avatar, ...restProps}: FriendPropsType) => {
     return (
-        <div className={style.friend}>
-            <img className={style.friendAvatar} src={avatar} alt="avatar" />
-            <h4>{name}</h4>
-        </div>
+            <div className={style.friendItem}>
+                <img className={style.friendAvatar} src={avatar} alt="avatar" />
+                <h4>{name}</h4>
+            </div>
     );
 };
