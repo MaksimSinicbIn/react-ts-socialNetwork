@@ -1,24 +1,24 @@
-.app-wrapper-header {
+/* .app-wrapper-header {
     display: grid;
     max-width: 100%;
     grid-template-areas:
     'h h';
     grid-row: 1fr;
-    
-}
+} */
 
 .app-wrapper {
     margin: 0 auto;
     display: grid;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     grid-template-areas:
-    "n c ."
-    "f c ."
-    ". c .";
-    grid-template-columns: 2fr 10fr;
-    grid-template-rows: auto auto;
+    "h h h h h h h h h"
+    ". . n c c c c . ."
+    ". . n c c c c . ."
+    ". . f c c c c . ."
+    ". . . c c c c . .";
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: 60px;
     grid-gap: 10px;
-    margin-top: 10px;
 }
 
 .app-wrapper-content {
