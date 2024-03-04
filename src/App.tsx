@@ -19,8 +19,11 @@ const App = ({state}: AppPropsType) => {
 
     return (
         <BrowserRouter>
-            <div className="app-wrapper">
+            <div className='app-wrapper-header '>
                 <Header />
+            </div>
+            <div className="app-wrapper">
+                
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Route path="/dialogs" render={ () => <Dialogs dialogPage={state.dialogsPage} />} />

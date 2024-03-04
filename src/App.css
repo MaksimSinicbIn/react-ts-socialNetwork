@@ -1,19 +1,29 @@
+.app-wrapper-header {
+    display: grid;
+    max-width: 100%;
+    grid-template-areas:
+    'h h';
+    grid-row: 1fr;
+    
+}
+
 .app-wrapper {
     margin: 0 auto;
     display: grid;
     max-width: 1200px;
     grid-template-areas:
-    "h h"
-    "n c"
-    "f c";
-    grid-template-rows: 60px 3fr;
+    "n c ."
+    "f c ."
+    ". c .";
     grid-template-columns: 2fr 10fr;
+    grid-template-rows: repeat(3, 1fr);;
     grid-gap: 10px;
+    margin-top: 10px;
 }
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: cornflowerblue;
+    background-color: rgb(188, 197, 209);
     border-radius: 20px;
     padding: 10px;
 }
