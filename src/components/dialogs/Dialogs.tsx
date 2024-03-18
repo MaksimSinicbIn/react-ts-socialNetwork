@@ -14,6 +14,13 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     let messagesElements = props.dialogPage.messages.map( message => <Message message={message.message} /> );
 
+    const newMessageElement = React.createRef<HTMLTextAreaElement>();
+
+    const addMessage = () => {
+        if (newMessageElement.current !== null)
+        alert(newMessageElement.current.value)
+    }
+
     return (
         <div>
             <div className={style.dialogs}>
@@ -22,6 +29,14 @@ export const Dialogs = (props: DialogsPropsType) => {
                 </div>
                 <div className={style.messages}>
                     {messagesElements}
+                </div>
+                <div className={style.addMessageForm}>
+                    <div>
+                        <textarea ref={newMessageElement}></textarea>
+                    </div>
+                    <div>
+                        <button onClick={addMessage}>Send message</button>
+                    </div>
                 </div>
             </div>
         </div>
