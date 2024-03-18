@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../render"
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -71,4 +73,14 @@ export let state: RootStateType = {
             { id: 3, name: "Sveta", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'}
         ]
     }
-} 
+}
+
+export const addPost = (post: string) => {
+    const newPost: PostType = {
+        id: new Date().getTime(),
+        post,
+        likesCount: 1
+    };
+    state.profilePage.posts.push(newPost);
+    rerenderEntireTree(state);
+}
