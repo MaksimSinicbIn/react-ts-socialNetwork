@@ -13,10 +13,13 @@ import { Friends } from './components/friends/Friends';
 
 type AppPropsType = {
     state: RootStateType
-    addPost: (post: string) => void
+    addPost: () => void
+    updateNewPostText: (nextText: string) => void
+    addMessage: () => void
+    updateNewMessageText: (nextMessageText: string) => void
 }
 
-const App = ({state, addPost}: AppPropsType) => {
+const App = ({state, addPost, updateNewPostText, addMessage, updateNewMessageText}: AppPropsType) => {
 
     return (
         <BrowserRouter>
@@ -24,8 +27,14 @@ const App = ({state, addPost}: AppPropsType) => {
                 <Header />
                 <Navbar />
                 <div className="app-wrapper-content">
-                    <Route path="/dialogs" render={ () => <Dialogs dialogPage={state.dialogsPage} />} />
-                    <Route path="/profile" render={ () => <Profile profilePage={state.profilePage} addPost={addPost}/>} />
+                    <Route path="/dialogs" render={ () => <Dialogs
+                                                                dialogPage={state.dialogsPage}
+                                                                addMessage={addMessage}
+                                                                updateNewMessageText={updateNewMessageText}/>} />
+                    <Route path="/profile" render={ () => <Profile
+                                                                profilePage={state.profilePage}
+                                                                addPost={addPost}
+                                                                updateNewPostText={updateNewPostText}/>} />
                     <Route path="/news" component={News} />
                     <Route path="/music" component={Music} />
                     <Route path="/settings" component={Settings} />
