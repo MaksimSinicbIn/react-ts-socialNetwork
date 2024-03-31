@@ -2,15 +2,14 @@ import React from 'react';
 import style from './Dialogs.module.css';
 import { DialogItem } from './dialogItem/DialogItem';
 import { Message } from './message/Message';
-import { DialogsPageType } from '../../redux/State';
+import { ActionsType, DialogsPageType, addMessageAC, updateNewMessageTextAC } from '../../redux/State';
 
 type DialogsPropsType = {
     dialogPage: DialogsPageType
-    addMessage: () => void
-    updateNewMessageText: (nextMessageText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
-export const Dialogs = ({dialogPage, addMessage, updateNewMessageText}: DialogsPropsType) => {
+export const Dialogs = ({dialogPage, dispatch}: DialogsPropsType) => {
 
     let dialogsElements = dialogPage.dialogs.map( dialog => <DialogItem id={dialog.id} name={dialog.name}/> );
 
@@ -19,13 +18,13 @@ export const Dialogs = ({dialogPage, addMessage, updateNewMessageText}: DialogsP
     const newMessageElement = React.createRef<HTMLTextAreaElement>();
 
     const addMessageHandler = () => {
-        addMessage()
+        dispatch(addMessageAC())
     }
 
     const onMessageChangeHandler = () => {
         if (newMessageElement.current) {
             let text = newMessageElement.current.value
-            updateNewMessageText(text)
+            dispatch(updateNewMessageTextAC(text))
         }
     }
 
