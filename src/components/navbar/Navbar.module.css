@@ -9,7 +9,8 @@
 }
 
 .item a  {
-    color: white;
+    color: black;
+    font-weight: 600;
     text-decoration: none;
 }
 

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import style from './MyPosts.module.css';
 import { Post } from './post/Post';
-import { ActionsType, PostType, addPostAC, updateNewPostTextAC } from '../../../redux/State';
+import { ActionsType, PostType} from '../../../redux/state';
+import { addPostAC, updateNewPostTextAC } from '../../../redux/profile-reducer';
 
 type MyPostsPropsType = {
     posts: Array<PostType>
@@ -13,17 +14,15 @@ export const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
 
     let postsElements = posts.map( p => <Post key={p.id} id={p.id} message={p.post} likesCounts={p.likesCount} /> );
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
+    // const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostHandler = () => {
         dispatch(addPostAC())
     }
 
-    const onPostChangeHandler = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value
+    const onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+            let text = e.currentTarget.value
             dispatch(updateNewPostTextAC(text))
-        }
     }
 
     return (
@@ -32,7 +31,7 @@ export const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
             <div>
                 <div>
                     <textarea
-                        ref={newPostElement}
+                        // ref={newPostElement}
                         onChange={onPostChangeHandler}
                         value={newPostText}
                     />

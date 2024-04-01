@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import style from './Dialogs.module.css';
 import { DialogItem } from './dialogItem/DialogItem';
 import { Message } from './message/Message';
-import { ActionsType, DialogsPageType, addMessageAC, updateNewMessageTextAC } from '../../redux/State';
+import { ActionsType, DialogsPageType} from '../../redux/state';
+import { addMessageAC, updateNewMessageTextAC } from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {
     dialogPage: DialogsPageType
@@ -15,17 +16,13 @@ export const Dialogs = ({dialogPage, dispatch}: DialogsPropsType) => {
 
     let messagesElements = dialogPage.messages.map( message => <Message message={message.message} /> );
 
-    const newMessageElement = React.createRef<HTMLTextAreaElement>();
-
     const addMessageHandler = () => {
         dispatch(addMessageAC())
     }
 
-    const onMessageChangeHandler = () => {
-        if (newMessageElement.current) {
-            let text = newMessageElement.current.value
+    const onMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+            let text = e.currentTarget.value
             dispatch(updateNewMessageTextAC(text))
-        }
     }
 
     return (
@@ -36,17 +33,17 @@ export const Dialogs = ({dialogPage, dispatch}: DialogsPropsType) => {
                 </div>
                 <div className={style.messages}>
                     {messagesElements}
-                </div>
-                <div className={style.addMessageForm}>
-                    <div>
-                        <textarea 
-                            ref={newMessageElement}
-                            onChange={onMessageChangeHandler}
-                            value={dialogPage.newMessageText}
-                        />
-                    </div>
-                    <div>
-                        <button onClick={addMessageHandler}>Send message</button>
+                    <div className={style.addMessageForm}>
+                        <div>
+                            <textarea
+                                onChange={onMessageChangeHandler}
+                                value={dialogPage.newMessageText}
+                                placeholder='Enter your message...'
+                            />
+                        </div>
+                        <div>
+                            <button onClick={addMessageHandler}>Send message</button>
+                        </div>
                     </div>
                 </div>
             </div>
