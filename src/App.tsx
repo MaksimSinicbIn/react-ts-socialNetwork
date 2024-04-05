@@ -8,7 +8,7 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { News } from './components/news/News';
 import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
-import { ActionsType, RootStateType } from './redux/state';
+import { ActionsType, RootStateType } from './redux/store';
 import { Friends } from './components/friends/Friends';
 
 type AppPropsType = {
