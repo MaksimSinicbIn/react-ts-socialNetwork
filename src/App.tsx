@@ -8,15 +8,16 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { News } from './components/news/News';
 import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
-import { ActionsType, RootStateType } from './redux/store';
+import { ActionsType, RootStateType, StoreType } from './redux/store';
 import { Friends } from './components/friends/Friends';
 
 type AppPropsType = {
     state: RootStateType
+    store: StoreType
     dispatch: (action: ActionsType) => void
 }
 
-const App = ({state, dispatch}: AppPropsType) => {
+const App = ({state, store, dispatch}: AppPropsType) => {
 
     return (
             <div className="app-wrapper">
@@ -25,8 +26,7 @@ const App = ({state, dispatch}: AppPropsType) => {
                 <div className="app-wrapper-content">
                     <Redirect from="/" to="/profile" />
                     <Route path="/dialogs" render={ () => <Dialogs
-                                                                dialogPage={state.dialogsPage}
-                                                                dispatch={dispatch}/>} />
+                                                                store={store}/>} />
                     <Route path="/profile" render={ () => <Profile
                                                                 profilePage={state.profilePage}
                                                                 dispatch={dispatch}/>} />
