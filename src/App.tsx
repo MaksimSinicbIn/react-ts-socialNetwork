@@ -4,20 +4,20 @@ import { Header } from './components/header/Header';
 import { Navbar } from './components/navbar/Navbar';
 import { Profile } from './components/profile/Profile';
 import { Dialogs } from './components/dialogs/Dialogs';
-import { BrowserRouter, Redirect, Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { News } from './components/news/News';
 import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
-import { ActionsType, RootStateType, StoreType } from './redux/store';
 import { Friends } from './components/friends/Friends';
+import { AppStoreType } from './redux/redux-store';
+import { DialogsContainer } from './components/dialogs/DialogsContainer';
+import { FriendsContainer } from './components/friends/FriendsContainer';
 
 type AppPropsType = {
-    state: RootStateType
-    store: StoreType
-    dispatch: (action: ActionsType) => void
+    // store: AppStoreType
 }
 
-const App = ({state, store, dispatch}: AppPropsType) => {
+const App = (props: AppPropsType) => {
 
     return (
             <div className="app-wrapper">
@@ -25,16 +25,13 @@ const App = ({state, store, dispatch}: AppPropsType) => {
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Redirect from="/" to="/profile" />
-                    <Route path="/dialogs" render={ () => <Dialogs
-                                                                store={store}/>} />
-                    <Route path="/profile" render={ () => <Profile
-                                                                profilePage={state.profilePage}
-                                                                dispatch={dispatch}/>} />
+                    <Route path="/dialogs" render={ () => <DialogsContainer />} />
+                    <Route path="/profile" render={ () => <Profile />} />
                     <Route path="/news" component={News} />
                     <Route path="/music" component={Music} />
                     <Route path="/settings" component={Settings} />
                 </div>
-                <Friends friends={state.sidebar.friends} />
+                <FriendsContainer />
             </div>
     );
 }

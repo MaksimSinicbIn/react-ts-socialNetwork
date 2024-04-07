@@ -2,28 +2,28 @@ import React, { ChangeEvent } from 'react';
 import style from './Dialogs.module.css';
 import { DialogItem } from './dialogItem/DialogItem';
 import { Message } from './message/Message';
-import { ActionsType, DialogsPageType, StoreType} from '../../redux/store';
-import { addMessageAC, updateNewMessageTextAC } from '../../redux/dialogs-reducer';
+import { DialogType, DialogsPageType, addMessageAC, updateNewMessageTextAC } from '../../redux/dialogs-reducer';
+import { AppStoreType } from '../../redux/redux-store';
 
 type DialogsPropsType = {
-    store: StoreType
+    dialogsPage: DialogsPageType
+    addMessage: () => void
+    updateNewMessageText: (newText: string) => void
 }
 
-export const Dialogs = ({store}: DialogsPropsType) => {
+export const Dialogs = ({dialogsPage, addMessage, updateNewMessageText}: DialogsPropsType) => {
 
-    let state = store.getState().dialogsPage
+    let dialogsElements = dialogsPage.dialogs.map( dialog => <DialogItem id={dialog.id} name={dialog.name}/> );
 
-    let dialogsElements = state.dialogs.map( dialog => <DialogItem id={dialog.id} name={dialog.name}/> );
-
-    let messagesElements = state.messages.map( message => <Message message={message.message} /> );
+    let messagesElements = dialogsPage.messages.map( message => <Message message={message.message} /> );
 
     const addMessageHandler = () => {
-        store.dispatch(addMessageAC())
+        addMessage()
     }
 
     const onMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
             let text = e.currentTarget.value
-            store.dispatch(updateNewMessageTextAC(text))
+            updateNewMessageText(text)
     }
 
     return (
@@ -38,7 +38,7 @@ export const Dialogs = ({store}: DialogsPropsType) => {
                         <div>
                             <textarea
                                 onChange={onMessageChangeHandler}
-                                value={state.newMessageText}
+                                value={dialogsPage.newMessageText}
                                 placeholder='Enter your message...'
                             />
                         </div>

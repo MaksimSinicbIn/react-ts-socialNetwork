@@ -1,5 +1,5 @@
-import { DialogsActionsType, addMessageAC, dialogsReducer, updateNewMessageTextAC } from "./dialogs-reducer"
-import { ProfileActionsType, addPostAC, profileReducer, updateNewPostTextAC } from "./profile-reducer"
+import { DialogsActionsType, dialogsReducer} from "./dialogs-reducer"
+import { ProfileActionsType, profileReducer} from "./profile-reducer"
 import { sidebarReducer } from "./sidebar-reducer"
 
 export type RootStateType = {
