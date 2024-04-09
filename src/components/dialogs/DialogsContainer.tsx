@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './Dialogs.module.css';
 import { addMessageAC, updateNewMessageTextAC } from '../../redux/dialogs-reducer';
 import { AppRootStateType } from '../../redux/redux-store';
 import { Dialogs } from './Dialogs';

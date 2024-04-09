@@ -3,13 +3,10 @@ import './App.css';
 import { Header } from './components/header/Header';
 import { Navbar } from './components/navbar/Navbar';
 import { Profile } from './components/profile/Profile';
-import { Dialogs } from './components/dialogs/Dialogs';
 import { Redirect, Route } from 'react-router-dom';
 import { News } from './components/news/News';
 import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
-import { Friends } from './components/friends/Friends';
-import { AppStoreType } from './redux/redux-store';
 import { DialogsContainer } from './components/dialogs/DialogsContainer';
 import { FriendsContainer } from './components/friends/FriendsContainer';
 
