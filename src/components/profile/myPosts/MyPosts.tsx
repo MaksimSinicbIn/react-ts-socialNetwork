@@ -2,27 +2,21 @@ import React, { ChangeEvent } from 'react';
 import style from './MyPosts.module.css';
 import { Post } from './post/Post';
 import { PostType } from '../../../redux/profile-reducer';
+import { MyPostsPropsType } from './MyPostsContainer';
 
-type MyPostsPropsType = {
-    posts: PostType[]
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (nextText: string) => void
-}
+export const MyPosts = (props: MyPostsPropsType) => {
 
-export const MyPosts = ({posts, addPost, newPostText, updateNewPostText}: MyPostsPropsType) => {
-
-    let postsElements = posts.map( p => <Post key={p.id} id={p.id} message={p.post} likesCounts={p.likesCount} /> );
+    let postsElements = props.posts.map( p => <Post key={p.id} id={p.id} message={p.post} likesCounts={p.likesCount} /> );
 
     // const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostHandler = () => {
-        addPost()
+        props.addPost()
     }
 
     const onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
-        updateNewPostText(text)
+        props.updateNewPostText(text)
     }
 
     return (
@@ -33,7 +27,7 @@ export const MyPosts = ({posts, addPost, newPostText, updateNewPostText}: MyPost
                     <textarea
                         // ref={newPostElement}
                         onChange={onPostChangeHandler}
-                        value={newPostText}
+                        value={props.newPostText}
                     />
                 </div>
                 <div>
