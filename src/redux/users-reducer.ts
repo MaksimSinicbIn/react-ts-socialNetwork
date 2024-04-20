@@ -1,31 +1,27 @@
 export type UsersPageType = {
-    users: UsersType[]
+    users: UserType[]
 }
 
-export type UsersType = {
+export type UserType = {
     id: number
+    photoUrl: string
     followed: boolean
     fullName: string
     status: string
-    location: LocationType
+    location: UserLocationType
 }
 
-export type LocationType = {
+export type UserLocationType = {
     country: string
     city: string
 }
 
 const initialState: UsersPageType = {
-    users: [
-        { id: 1, followed: true, fullName: 'Dmitry', status: 'Za pridurka menya ne derzhi', location: { country: 'Russia', city: 'Krasnoyarsk'}},
-        { id: 2, followed: false, fullName: 'Tolyan', status: 'Chisti, chisti, chtob chisto bbIlo', location: { country: 'Russia', city: 'Ekaterinburg'}},
-        { id: 3, followed: false, fullName: 'Serega', status: 'Copim dengi na comp', location: { country: 'Russia', city: 'Kansk'}},
-        { id: 4, followed: true, fullName: 'Maksim', status: 'Hozyain svarki', location: { country: 'Russia', city: 'Krasnoyarsk'}}
-    ]
+    users: []
 }
 
 
-export const usersReducer = (state = initialState, action: ProfileActionsType) => {
+export const usersReducer = (state: UsersPageType = initialState, action: ProfileActionsType): UsersPageType => {
     switch(action.type) {
         case 'FOLLOW':
             return {...state, users: state.users.map( u => u.id === action.userId ? {...u, followed: true} : u)};
@@ -51,7 +47,7 @@ export const followAC = (userId: number) => {
 export const unfollowAC = (userId: number) => {
     return { type: 'UNFOLLOW', userId} as const
 }
-export const setUsersAC = (users: any) => {
+export const setUsersAC = (users: UserType[]) => {
     return { type: 'SET-USERS', users} as const
 }
 
