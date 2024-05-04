@@ -1,67 +1,94 @@
 import * as React from 'react';
 import s from './Users.module.css'
-import { UsersPropsType } from './UsersContainer';
-import axios from 'axios';
 import userPhoto from '../../assets/images/jizn.webp';
+import { UsersPagePropsType } from './UsersContainer';
+import { useState } from 'react';
+
+type UsersPropsType = {
+    onPageChanged: (pageNumber: number) => void
+} & UsersPagePropsType
+
 
 export const Users = (props: UsersPropsType) => {
 
-    let getUsers = () => {
-        if(props.usersPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then((res) => {
-                    props.setUsers(res.data.items)
-                })
+    const[startPage, setStartPage] = useState(1)
+    const[endPage, setEndPage] = useState(1)
+
+    const prevPageHandler = () => {
+        if (startPage > 0) {
+            setStartPage(startPage - 1)
+            setEndPage(endPage - 1)
+            props.onPageChanged(startPage - 1)
+        }
     }
-        // props.setUsers(
-        //     [
-        //         { id: 1, photoUrl: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album', followed: true, fullName: 'Dmitry', status: 'Za pridurka menya ne derzhi', location: { country: 'Russia', city: 'Krasnoyarsk' } },
-        //         { id: 2, photoUrl: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album', followed: false, fullName: 'Tolyan', status: 'Chisti, chisti, chtob chisto bbIlo', location: { country: 'Russia', city: 'Ekaterinburg' } },
-        //         { id: 3, photoUrl: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album', followed: false, fullName: 'Serega', status: 'Copim dengi na comp', location: { country: 'Russia', city: 'Kansk' } },
-        //         { id: 4, photoUrl: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album', followed: true, fullName: 'Maksim', status: 'Hozyain svarki', location: { country: 'Russia', city: 'Krasnoyarsk' } }
-        //     ]
-        // )
+    const nextPageHandler = () => {
+        if (endPage <= pagesCount ) {
+            setStartPage(startPage + 1)
+            setEndPage(endPage + 1)
+            props.onPageChanged(startPage + 1)
+        }
+    }
+
+    let pagesCount = Math.ceil(props.usersPage.totalUsersCount / props.usersPage.pageSize)
+    let pages = []
+    for (let i = startPage; i <= endPage && i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return (
-        <div>
-            <button onClick={getUsers}>Get Users</button>
-            {
-                props.usersPage.users.map(u => {
-                    const onFollowClickHandler = () => {
-                        props.follow(u.id)
-                    };
-                    const onUnFollowClickHandler = () => {
-                        props.unfollow(u.id)
-                    };
+        <>
+            <div className={s.selector}>
+                <button onClick={prevPageHandler}>-</button>
+                {pages.map((page) => {
+                    const onClickPageHandler = () => {
+                        props.onPageChanged(page)
+                    }
                     return (
-                        <div key={u.id}>
-                            <span>
-                                <div>
-                                    <img src={userPhoto} className={s.userAvatar} alt="" />
-                                </div>
+                        <span key={page}
+                            className={props.usersPage.currentPage === page ? s.selectedPage : ''}
+                            onClick={onClickPageHandler}>{startPage}</span>
+                    )
+                })}
+                <button onClick={nextPageHandler}>+</button>
+            </div>
+            <div className={s.userList}>
+                {
+                    props.usersPage.users.map(u => {
+                        const onFollowClickHandler = () => {
+                            props.follow(u.id)
+                        }
+                        const onUnFollowClickHandler = () => {
+                            props.unfollow(u.id)
+                        }
+                        return (
+                            <div className={s.userItem} key={u.id}>
+                                <span>
+                                    <div>
+                                        <img src={userPhoto} className={s.userAvatar} alt="" />
+                                    </div>
+                                </span>
                                 <div>
                                     {
                                         u.followed
-                                        ? <button onClick={onUnFollowClickHandler}>Unfollow</button>
-                                        : <button onClick={onFollowClickHandler}>Follow</button>
+                                            ? <button onClick={onUnFollowClickHandler}>Unfollow</button>
+                                            : <button onClick={onFollowClickHandler}>Follow</button>
                                     }
                                 </div>
-                            </span>
-                            <span>
                                 <span>
-                                    <div>{u.name}</div>
-                                    <div>{u.status}</div>
+                                    <span>
+                                        <div>{u.name}</div>
+                                        <div>{u.status}</div>
+                                    </span>
+                                    <span>
+                                        <div>{'u.location.country'}</div>
+                                        <div>{'u.location.city'}</div>
+                                    </span>
                                 </span>
-                                <span>
-                                    <div>{'u.location.country'}</div>
-                                    <div>{'u.location.city'}</div>
-                                </span>
-                            </span>
-                        </div>
-                    );
-                })
-            }
-        </div>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        </>
     );
 };

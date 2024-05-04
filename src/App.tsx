@@ -9,7 +9,8 @@ import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
 import { DialogsContainer } from './components/dialogs/DialogsContainer';
 import { FriendsContainer } from './components/friends/FriendsContainer';
-import { UsersContainer } from './components/users/UsersContainer';
+import UsersContainer from './components/users/UsersContainer';
+
 
 type AppPropsType = {
     // store: AppStoreType
