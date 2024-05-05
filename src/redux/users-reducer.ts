@@ -3,6 +3,7 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 export type UserType = {
@@ -23,7 +24,8 @@ const initialState: UsersPageType = {
     users: [],
     pageSize: 8,
     totalUsersCount: 0,
-    currentPage: 3
+    currentPage: 3,
+    isFetching: false
 }
 
 
@@ -39,6 +41,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Profil
             return {...state, currentPage: action.currentPage};
         case 'SET-USERS-TOTAL-COUNT':
             return {...state, totalUsersCount: action.totalCount};
+        case 'IS-FETCHING':
+            return {...state, isFetching: action.isFetching};
         default:
             return state
     }
@@ -49,9 +53,11 @@ export type UnfollowActionType = ReturnType<typeof unfollowAC>
 export type SetUsersACActionType = ReturnType<typeof setUsersAC>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
 export type SetUsersTotalCountType = ReturnType<typeof setTotalUsersCountAC>
+export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 export type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
 
-export type ProfileActionsType = FollowActionType | UnfollowActionType | SetUsersACActionType | SetCurrentPageType | SetUsersTotalCountType
+
+export type ProfileActionsType = FollowActionType | UnfollowActionType | SetUsersACActionType | SetCurrentPageType | SetUsersTotalCountType | ToggleIsFetchingACType
 
 export const followAC = (userId: number) => {
     return { type: 'FOLLOW', userId} as const
@@ -67,6 +73,9 @@ export const setCurrentPageAC = (currentPage: number) => {
 }
 export const setTotalUsersCountAC = (totalCount: number) => {
     return { type: 'SET-USERS-TOTAL-COUNT', totalCount} as const
+}
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+    return {type: 'IS-FETCHING', isFetching} as const
 }
 export const updateNewPostTextAC = (nextText: string) => {
     return {type: 'UPDATE-NEWPOST-TEXT', nextText} as const
