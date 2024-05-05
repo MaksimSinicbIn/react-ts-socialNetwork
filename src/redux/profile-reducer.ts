@@ -36,15 +36,15 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
     }
 }
 
-export type AddPostActionType = ReturnType<typeof addPostAC>
-export type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
+export type AddPostActionType = ReturnType<typeof addPost>
+export type UpdateNewPostTextType = ReturnType<typeof updateNewPostText>
 
 export type ProfileActionsType = AddPostActionType | UpdateNewPostTextType
 
-export const addPostAC = () => {
+export const addPost = () => {
     return { type: 'ADD-POST'} as const
 }
 
-export const updateNewPostTextAC = (nextText: string) => {
+export const updateNewPostText = (nextText: string) => {
     return {type: 'UPDATE-NEWPOST-TEXT', nextText} as const
 }

@@ -48,35 +48,35 @@ export const usersReducer = (state: UsersPageType = initialState, action: Profil
     }
 }
 
-export type FollowActionType = ReturnType<typeof followAC>
-export type UnfollowActionType = ReturnType<typeof unfollowAC>
-export type SetUsersACActionType = ReturnType<typeof setUsersAC>
-export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
-export type SetUsersTotalCountType = ReturnType<typeof setTotalUsersCountAC>
-export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
-export type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextAC>
+export type FollowActionType = ReturnType<typeof follow>
+export type UnfollowActionType = ReturnType<typeof unfollow>
+export type SetUsersACActionType = ReturnType<typeof setUsers>
+export type SetCurrentPageType = ReturnType<typeof setCurrentPage>
+export type SetUsersTotalCountType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+export type UpdateNewPostTextType = ReturnType<typeof updateNewPostText>
 
 
 export type ProfileActionsType = FollowActionType | UnfollowActionType | SetUsersACActionType | SetCurrentPageType | SetUsersTotalCountType | ToggleIsFetchingACType
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return { type: 'FOLLOW', userId} as const
 }
-export const unfollowAC = (userId: number) => {
+export const unfollow = (userId: number) => {
     return { type: 'UNFOLLOW', userId} as const
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return { type: 'SET-USERS', users} as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return { type: 'SET-CURRENT-PAGE', currentPage} as const
 }
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
     return { type: 'SET-USERS-TOTAL-COUNT', totalCount} as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {type: 'IS-FETCHING', isFetching} as const
 }
-export const updateNewPostTextAC = (nextText: string) => {
+export const updateNewPostText = (nextText: string) => {
     return {type: 'UPDATE-NEWPOST-TEXT', nextText} as const
 }
