@@ -23,7 +23,6 @@ export const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
                 <p>{profile.lookingForAJobDescription}</p>
                 {JSON.stringify(profile.contacts)}
             </div>
-            
         </div>
     );
 };
