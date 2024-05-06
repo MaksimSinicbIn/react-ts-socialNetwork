@@ -10,6 +10,7 @@ import { DialogsContainer } from './components/dialogs/DialogsContainer';
 import { FriendsContainer } from './components/friends/FriendsContainer';
 import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
+import HeaderContainer from './components/header/HeaderContainer';
 
 
 
@@ -21,7 +22,7 @@ const App = (props: AppPropsType) => {
 
     return (
             <div className="app-wrapper">
-                <Header />
+                <HeaderContainer />
                 <Navbar />
                 <div className="app-wrapper-content">
                     <Redirect from="/" to="/profile" />

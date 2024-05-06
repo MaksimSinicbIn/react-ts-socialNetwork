@@ -4,6 +4,8 @@ import userPhoto from '../../assets/images/jizn.webp';
 import { UsersPagePropsType } from './UsersContainer';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { usersApi } from '../../api/api';
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -56,10 +58,20 @@ export const Users = (props: UsersPropsType) => {
                 {
                     props.usersPage.users.map(u => {
                         const onFollowClickHandler = () => {
-                            props.follow(u.id)
+                            usersApi.follow(u.id)
+                                .then(data => {
+                                    if (data.resultCode === 0) {
+                                        props.follow(u.id)
+                                    }
+                                })
                         }
                         const onUnFollowClickHandler = () => {
-                            props.unfollow(u.id)
+                            usersApi.unfollow(u.id)
+                                .then(data => {
+                                    if (data.resultCode === 0) {
+                                        props.unfollow(u.id)
+                                    }
+                                })
                         }
                         return (
                             <div className={s.userItem} key={u.id}>
@@ -68,7 +80,6 @@ export const Users = (props: UsersPropsType) => {
                                         <NavLink to={`/profile/${u.id}`}>
                                             <img src={userPhoto} className={s.userAvatar} alt="" />
                                         </NavLink>
-                                        
                                     </div>
                                 </span>
                                 <div>
