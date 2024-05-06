@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import userPhoto from '../../assets/images/jizn.webp';
 import { UsersPagePropsType } from './UsersContainer';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -64,7 +65,10 @@ export const Users = (props: UsersPropsType) => {
                             <div className={s.userItem} key={u.id}>
                                 <span>
                                     <div>
-                                        <img src={userPhoto} className={s.userAvatar} alt="" />
+                                        <NavLink to={`/profile/${u.id}`}>
+                                            <img src={userPhoto} className={s.userAvatar} alt="" />
+                                        </NavLink>
+                                        
                                     </div>
                                 </span>
                                 <div>

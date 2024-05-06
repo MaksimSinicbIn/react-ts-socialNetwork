@@ -15,18 +15,44 @@ export type DialogsPageType = {
 }
 
 export type ProfilePageType = {
+    profile: ProfileType
     posts: Array<PostType>
     newPostText: string
 }
 
-export type SidebarType = {
-    friends: Array<FriendsType>
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotoType
+}
+
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+
+export type PhotoType = {
+    small: string
+    large: string
 }
 
 export type PostType = {
     id: number
     post: string
     likesCount: number
+}
+
+export type SidebarType = {
+    friends: Array<FriendsType>
 }
 
 export type DialogType = {
@@ -58,6 +84,26 @@ export type ActionsType = ProfileActionsType | DialogsActionsType
 export let store: StoreType = {
     _state: {
         profilePage: {
+            profile: {
+                userId: 1,
+                lookingForAJob: true,
+                lookingForAJobDescription: '',
+                fullName: 'Anton',
+                contacts: {
+                    github: '',
+                    vk: '',
+                    facebook: '',
+                    instagram: '',
+                    twitter: '',
+                    website: '',
+                    youtube: '',
+                    mainLink: ''
+                },
+                photos:{
+                    small: '',
+                    large: ''
+                }
+            },
             posts: [
                 { id: 1, post: "Hi", likesCount: 15 },
                 { id: 2, post: "Hi, how are you?", likesCount: 20 },

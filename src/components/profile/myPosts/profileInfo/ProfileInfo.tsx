@@ -1,19 +1,29 @@
 import React from 'react';
 import style from './ProfileInfo.module.css';
+import { ProfileType } from '../../../../redux/profile-reducer';
+import Preloader from '../../../common/preloader/Preloader';
 
 type ProfileInfoPropsType = {
-
+    profile: ProfileType
 }
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
+export const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
+    if (!profile) {
+        return <Preloader />
+    }
     return (
         <div>
             <div>
                 <img className={style.profileInfoImg} src='https://sun9-12.userapi.com/impg/UvVPRI_LiSEp-kOwFQlLDeH37AOhq36mJVSFKg/QKcTyKChz3g.jpg?size=1920x1080&quality=96&sign=a11517a8914c7e7ba6a08784dca2abfe&type=album' alt='love' />
             </div>
             <div className={style.descriptionBlock}>
-                avatar+description
+                <img src={profile.photos.small} alt='smallPhoto'/>
+                <p>{profile.fullName}</p>
+                <input type='checkbox' checked={profile.lookingForAJob}/>
+                <p>{profile.lookingForAJobDescription}</p>
+                {JSON.stringify(profile.contacts)}
             </div>
+            
         </div>
     );
 };
