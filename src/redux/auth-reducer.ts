@@ -19,7 +19,7 @@ const initialState: AuthDataType = {
 export const authReducer = (state = initialState, action: SetUserDataType) => {
     switch (action.type ) {
         case 'SET-USER-DATA':
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.data, isAuth: false}
         default:
             return state
     }
@@ -29,7 +29,7 @@ type SetUserDataType = ReturnType<typeof setUserData>
 
 export const setUserData = (data: AuthDataType) => ({type: 'SET-USER-DATA', data} as const)
 
-export const setUserDataTC = (): AppThunk => (dispatch: Dispatch) => {
+export const getUserDataTC = (): AppThunk => (dispatch: Dispatch) => {
     authMeApi.authMeResponse()
         .then(data => {
             if (data.resultCode === 0) {

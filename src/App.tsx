@@ -10,6 +10,7 @@ import { FriendsContainer } from './components/friends/FriendsContainer';
 import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import HeaderContainer from './components/header/HeaderContainer';
+import { Login } from './login/Login';
 
 
 
@@ -20,20 +21,21 @@ type AppPropsType = {
 const App = (props: AppPropsType) => {
 
     return (
-            <div className="app-wrapper">
-                <HeaderContainer />
-                <Navbar />
-                <div className="app-wrapper-content">
-                    <Redirect from="/" to="/profile" />
-                    <Route path="/dialogs" render={ () => <DialogsContainer />} />
-                    <Route path="/profile/:userId?" render={ () => <ProfileContainer />} />
-                    <Route path="/users" render={ () => <UsersContainer />} />
-                    <Route path="/news" component={News} />
-                    <Route path="/music" component={Music} />
-                    <Route path="/settings" component={Settings} />
-                </div>
-                <FriendsContainer />
+        <div className="app-wrapper">
+            <HeaderContainer />
+            <Navbar />
+            <div className="app-wrapper-content">
+                {/* <Redirect from="/*" to="/profile" /> */}
+                <Route path="/dialogs" render={() => <DialogsContainer />} />
+                <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+                <Route path="/users" render={() => <UsersContainer />} />
+                <Route path="/login" render={() => <Login />} />
+                <Route path="/news" component={News} />
+                <Route path="/music" component={Music} />
+                <Route path="/settings" component={Settings} />
             </div>
+            <FriendsContainer />
+        </div>
     );
 }
 

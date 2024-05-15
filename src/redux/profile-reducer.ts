@@ -97,7 +97,7 @@ export const addPost = () => ({ type: 'ADD-POST'} as const)
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 
-export const setUserProfileTC = (userId: string): AppThunk => (dispatch: Dispatch) => {
+export const getUserProfileTC = (userId: string): AppThunk => (dispatch: Dispatch) => {
     profileApi.getProfile(userId)
         .then(data => {
             dispatch(setUserProfile(data))
