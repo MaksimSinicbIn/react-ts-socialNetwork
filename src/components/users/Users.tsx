@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { usersApi } from '../../api/api';
+import { toggleFollowingProgress } from '../../redux/users-reducer';
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -58,19 +59,23 @@ export const Users = (props: UsersPropsType) => {
                 {
                     props.usersPage.users.map(u => {
                         const onFollowClickHandler = () => {
+                            props.toggleFollowingProgress(true, u.id)
                             usersApi.follow(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         props.follow(u.id)
                                     }
+                                    props.toggleFollowingProgress(false, u.id)
                                 })
                         }
                         const onUnFollowClickHandler = () => {
+                            props.toggleFollowingProgress(true, u.id)
                             usersApi.unfollow(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         props.unfollow(u.id)
                                     }
+                                    props.toggleFollowingProgress(false, u.id)
                                 })
                         }
                         return (
@@ -85,8 +90,14 @@ export const Users = (props: UsersPropsType) => {
                                 <div>
                                     {
                                         u.followed
-                                            ? <button onClick={onUnFollowClickHandler}>Unfollow</button>
-                                            : <button onClick={onFollowClickHandler}>Follow</button>
+                                            ? <button
+                                                onClick={onUnFollowClickHandler}
+                                                disabled={props.usersPage.followingInProgress.some(id => id === u.id)}
+                                                >Unfollow</button>
+                                            : <button
+                                                onClick={onFollowClickHandler}
+                                                disabled={props.usersPage.followingInProgress.some(id => id === u.id)}
+                                                >Follow</button>
                                     }
                                 </div>
                                 <span>

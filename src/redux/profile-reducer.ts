@@ -90,12 +90,6 @@ export type SetUserProfileType = ReturnType<typeof setUserProfile>
 
 export type ProfileActionsType = AddPostActionType | UpdateNewPostTextType | SetUserProfileType
 
-export const addPost = () => {
-    return { type: 'ADD-POST'} as const
-}
-export const updateNewPostText = (nextText: string) => {
-    return {type: 'UPDATE-NEWPOST-TEXT', nextText} as const
-}
-export const setUserProfile = (profile: ProfileType) => {
-    return {type: 'SET-USER-PROFILE', profile} as const
-}
+export const addPost = () => ({ type: 'ADD-POST'} as const)
+export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)

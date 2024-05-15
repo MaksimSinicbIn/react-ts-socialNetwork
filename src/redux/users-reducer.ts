@@ -4,6 +4,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 
 export type UserType = {
@@ -25,7 +26,8 @@ const initialState: UsersPageType = {
     pageSize: 8,
     totalUsersCount: 0,
     currentPage: 3,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [2, 3, 4, 5]
 }
 
 
@@ -41,8 +43,13 @@ export const usersReducer = (state: UsersPageType = initialState, action: Profil
             return {...state, currentPage: action.currentPage};
         case 'SET-USERS-TOTAL-COUNT':
             return {...state, totalUsersCount: action.totalCount};
-        case 'IS-FETCHING':
+        case 'TOOGLE-IS-FETCHING':
             return {...state, isFetching: action.isFetching};
+        case 'TOOGLE-FOLLOWING-PROGRESS':
+            return {...state, followingInProgress: action.isFetching 
+                        ? [...state.followingInProgress, action.userId]
+                        : state.followingInProgress.filter(id => id !== action.userId)
+                };
         default:
             return state
     }
@@ -51,32 +58,27 @@ export const usersReducer = (state: UsersPageType = initialState, action: Profil
 export type FollowActionType = ReturnType<typeof follow>
 export type UnfollowActionType = ReturnType<typeof unfollow>
 export type SetUsersACActionType = ReturnType<typeof setUsers>
-export type SetCurrentPageType = ReturnType<typeof setCurrentPage>
-export type SetUsersTotalCountType = ReturnType<typeof setTotalUsersCount>
-export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
-export type UpdateNewPostTextType = ReturnType<typeof updateNewPostText>
+export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
+export type SetUsersTotalCountActionType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
+export type ToggleFollowingProgressActionType = ReturnType<typeof toggleFollowingProgress>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostText>
 
 
-export type ProfileActionsType = FollowActionType | UnfollowActionType | SetUsersACActionType | SetCurrentPageType | SetUsersTotalCountType | ToggleIsFetchingACType
+export type ProfileActionsType = 
+    | FollowActionType
+    | UnfollowActionType
+    | SetUsersACActionType
+    | SetCurrentPageActionType
+    | SetUsersTotalCountActionType
+    | ToggleIsFetchingActionType
+    | ToggleFollowingProgressActionType
 
-export const follow = (userId: number) => {
-    return { type: 'FOLLOW', userId} as const
-}
-export const unfollow = (userId: number) => {
-    return { type: 'UNFOLLOW', userId} as const
-}
-export const setUsers = (users: UserType[]) => {
-    return { type: 'SET-USERS', users} as const
-}
-export const setCurrentPage = (currentPage: number) => {
-    return { type: 'SET-CURRENT-PAGE', currentPage} as const
-}
-export const setTotalUsersCount = (totalCount: number) => {
-    return { type: 'SET-USERS-TOTAL-COUNT', totalCount} as const
-}
-export const toggleIsFetching = (isFetching: boolean) => {
-    return {type: 'IS-FETCHING', isFetching} as const
-}
-export const updateNewPostText = (nextText: string) => {
-    return {type: 'UPDATE-NEWPOST-TEXT', nextText} as const
-}
+export const follow = (userId: number) => ({ type: 'FOLLOW', userId} as const)
+export const unfollow = (userId: number) => ({ type: 'UNFOLLOW', userId} as const)
+export const setUsers = (users: UserType[]) => ({ type: 'SET-USERS', users} as const)
+export const setCurrentPage = (currentPage: number) => ({ type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalUsersCount = (totalCount: number) => ({ type: 'SET-USERS-TOTAL-COUNT', totalCount} as const)
+export const toggleIsFetching = (isFetching: boolean) =>({type: 'TOOGLE-IS-FETCHING', isFetching} as const)
+export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: 'TOOGLE-FOLLOWING-PROGRESS', isFetching, userId} as const)
+export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)

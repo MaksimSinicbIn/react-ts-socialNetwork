@@ -23,6 +23,4 @@ export const authReducer = (state = initialState, action: SetUserDataType) => {
 
 type SetUserDataType = ReturnType<typeof setUserData>
 
-export const setUserData = (data: AuthDataType) => {
-    return {type: 'SET-USER-DATA', data}
-}
+export const setUserData = (data: AuthDataType) => ({type: 'SET-USER-DATA', data} as const)

@@ -55,10 +55,5 @@ export type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMessageT
 
 export type DialogsActionsType = AddMessageActionType | UpdateNewMessageTextActionType
 
-export const addMessage = () => {
-    return { type: 'ADD-MESSAGE'} as const
-}
-
-export const updateNewMessageText = (nextMessageText: string) => {
-    return {type: 'UPDATE-NEWMESSAGE-TEXT', nextMessageText} as const
-}
+export const addMessage = () => ({ type: 'ADD-MESSAGE'} as const)
+export const updateNewMessageText = (nextMessageText: string) => ({type: 'UPDATE-NEWMESSAGE-TEXT', nextMessageText} as const)
