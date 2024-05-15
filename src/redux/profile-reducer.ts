@@ -1,3 +1,6 @@
+import { Dispatch } from "redux"
+import { AppThunk } from "./redux-store"
+import { profileApi } from "../api/api"
 
 export type ProfilePageType = {
     profile: ProfileType
@@ -93,3 +96,10 @@ export type ProfileActionsType = AddPostActionType | UpdateNewPostTextType | Set
 export const addPost = () => ({ type: 'ADD-POST'} as const)
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
+
+export const setUserProfileTC = (userId: string): AppThunk => (dispatch: Dispatch) => {
+    profileApi.getProfile(userId)
+        .then(data => {
+            dispatch(setUserProfile(data))
+        })
+}

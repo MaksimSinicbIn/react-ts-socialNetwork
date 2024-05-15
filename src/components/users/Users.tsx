@@ -4,9 +4,6 @@ import userPhoto from '../../assets/images/jizn.webp';
 import { UsersPagePropsType } from './UsersContainer';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { usersApi } from '../../api/api';
-import { toggleFollowingProgress } from '../../redux/users-reducer';
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -44,9 +41,7 @@ export const Users = (props: UsersPropsType) => {
             <div className={s.selector}>
                 <button onClick={prevPageHandler}>-</button>
                 {pages.map((page) => {
-                    const onClickPageHandler = () => {
-                        props.onPageChanged(page)
-                    }
+                    const onClickPageHandler = () => {props.onPageChanged(page)}
                     return (
                         <span key={page}
                             className={props.usersPage.currentPage === page ? s.selectedPage : ''}
@@ -58,26 +53,8 @@ export const Users = (props: UsersPropsType) => {
             <div className={s.userList}>
                 {
                     props.usersPage.users.map(u => {
-                        const onFollowClickHandler = () => {
-                            props.toggleFollowingProgress(true, u.id)
-                            usersApi.follow(u.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.follow(u.id)
-                                    }
-                                    props.toggleFollowingProgress(false, u.id)
-                                })
-                        }
-                        const onUnFollowClickHandler = () => {
-                            props.toggleFollowingProgress(true, u.id)
-                            usersApi.unfollow(u.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.unfollow(u.id)
-                                    }
-                                    props.toggleFollowingProgress(false, u.id)
-                                })
-                        }
+                        const onFollowClickHandler = () => {props.follow(u.id)}
+                        const onUnFollowClickHandler = () => {props.unfollow(u.id)}
                         return (
                             <div className={s.userItem} key={u.id}>
                                 <span>
