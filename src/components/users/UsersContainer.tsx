@@ -4,6 +4,7 @@ import { AppRootStateType } from '../../redux/redux-store';
 import { followSuccess, followTC, getUsersTC, setCurrentPage, unfollowSuccess, unfollowTC, UsersPageType } from '../../redux/users-reducer';
 import { Users } from './Users';
 import Preloader from '../common/preloader/Preloader';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 class UsersContainer extends React.Component<UsersPagePropsType> {
 
@@ -45,6 +46,8 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         usersPage: state.usersPage
     }
 }
+
+const withRedirect = withAuthRedirect(UsersContainer)
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 //     return {
 //         follow: (userId: number) => {
@@ -75,4 +78,4 @@ export default connect (mapStateToProps, {
     getUsers: getUsersTC,
     follow: followTC,
     unfollow: unfollowTC
-}) (UsersContainer);
+}) (withRedirect);
