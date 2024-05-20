@@ -78,6 +78,8 @@ export type ProfileActionsType =
     | ToggleIsFetchingActionType
     | ToggleFollowingProgressActionType
 
+
+// Action Creators
 export const followSuccess = (userId: number) => ({ type: 'FOLLOW', userId} as const)
 export const unfollowSuccess = (userId: number) => ({ type: 'UNFOLLOW', userId} as const)
 export const setUsers = (users: UserType[]) => ({ type: 'SET-USERS', users} as const)
@@ -87,6 +89,7 @@ export const toggleIsFetching = (isFetching: boolean) =>({type: 'TOGGLE-IS-FETCH
 export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: 'TOGGLE-FOLLOWING-PROGRESS', isFetching, userId} as const)
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
 
+// Thunk Creators
 export const getUsersTC = (currentPage: number, pageSize: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
     usersApi.getUsers(currentPage, pageSize).then(data => {
@@ -106,6 +109,7 @@ export const followTC = (userId: number): AppThunk => (dispatch: Dispatch) => {
         dispatch(toggleFollowingProgress(false, userId))
     })
 }
+
 export const unfollowTC = (userId: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersApi.unfollow(userId).then(data => {

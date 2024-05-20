@@ -42,10 +42,10 @@ export type PostType = {
 
 const initialState: ProfilePageType = {
     profile: {
-        userId: 1,
+        userId: 30984,
         lookingForAJob: true,
         lookingForAJobDescription: '',
-        fullName: 'Anton',
+        fullName: 'Maksim_SinicbIn',
         
         contacts: {
             github: '',
@@ -83,30 +83,52 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
             return {...state, posts: [...state.posts, newPost], newPostText: ''};
         case 'UPDATE-NEWPOST-TEXT':
             return {...state, newPostText: action.nextText};
-        case 'UPDATE-PROFILE-STATUS':
-            return {...state, status: action.status};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile};
+        case 'SET-USER-STATUS':
+            return {...state, status: action.status};
         default:
             return state
     }
 }
 
 export type AddPostActionType = ReturnType<typeof addPost>
-export type UpdateNewPostTextType = ReturnType<typeof updateNewPostText>
-export type UpdateProfileStatusType = ReturnType<typeof updateProfileStatus>
-export type SetUserProfileType = ReturnType<typeof setUserProfile>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostText>
+export type SetUserProfileActionType= ReturnType<typeof setUserProfile>
+export type SetUserStatusActionType = ReturnType<typeof setUserStatus>
 
-export type ProfileActionsType = AddPostActionType | UpdateNewPostTextType | SetUserProfileType | UpdateProfileStatusType
+export type ProfileActionsType =
+| AddPostActionType
+| UpdateNewPostTextActionType
+| SetUserProfileActionType
+| SetUserStatusActionType
 
+// Action Creators
 export const addPost = () => ({ type: 'ADD-POST'} as const)
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
-export const updateProfileStatus = (status: string) => ({type: 'UPDATE-PROFILE-STATUS', status} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
+export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
 
-export const getUserProfileTC = (userId: string): AppThunk => (dispatch: Dispatch) => {
+// Thunk Creators
+export const getUserProfile = (userId: string): AppThunk => (dispatch: Dispatch) => {
     profileApi.getProfile(userId)
         .then(data => {
             dispatch(setUserProfile(data))
+        })
+}
+
+export const getUserStatus = (userId: string): AppThunk => (dispatch: Dispatch) => {
+    profileApi.getStatus(userId)
+        .then(data => {
+            dispatch(setUserStatus(data))
+        })
+}
+
+export const updateUserStatus = (status: string): AppThunk => (dispatch: Dispatch) => {
+    profileApi.updateStatus(status)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserStatus(data))
+            }
         })
 }

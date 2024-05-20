@@ -7,9 +7,10 @@ import { ProfileStatus } from './ProfileStatus';
 type ProfileInfoPropsType = {
     profile: ProfileType
     status: string
+    updateUserStatus: (status: string) => void
 }
 
-export const ProfileInfo = ({profile, status}: ProfileInfoPropsType) => {
+export const ProfileInfo = ({profile, status, updateUserStatus}: ProfileInfoPropsType) => {
 
     if (!profile) {
         return <Preloader />
@@ -21,7 +22,7 @@ export const ProfileInfo = ({profile, status}: ProfileInfoPropsType) => {
             </div>
             <div className={style.descriptionBlock}>
                 <img src={profile.photos.small} alt='smallPhoto'/>
-                <ProfileStatus status={status}/>
+                <ProfileStatus status={status} updateUserStatus={updateUserStatus}/>
                 <p>{profile.fullName}</p>
                 <input type='checkbox' checked={profile.lookingForAJob}/>
                 <p>{profile.lookingForAJobDescription}</p>

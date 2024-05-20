@@ -10,7 +10,7 @@ export type AuthDataType = {
 }
 
 const initialState: AuthDataType = {
-        id: '1',
+        id: '30984',
         email: 'sinicbIn@gmail.com',
         login: 'MaksimSinicbIn',
         isAuth: true
