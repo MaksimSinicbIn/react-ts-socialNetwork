@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { AppRootStateType } from '../../redux/redux-store';
 import { followSuccess, followTC, getUsersTC, setCurrentPage, unfollowSuccess, unfollowTC, UsersPageType } from '../../redux/users-reducer';
 import { Users } from './Users';
 import Preloader from '../common/preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class UsersContainer extends React.Component<UsersPagePropsType> {
 
@@ -47,7 +48,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-const withRedirect = withAuthRedirect(UsersContainer)
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 //     return {
 //         follow: (userId: number) => {
@@ -71,11 +71,14 @@ const withRedirect = withAuthRedirect(UsersContainer)
 //     }
 // }
 
-export default connect (mapStateToProps, {
-    followSuccess,
-    unfollowSuccess,
-    setCurrentPage,
-    getUsers: getUsersTC,
-    follow: followTC,
-    unfollow: unfollowTC
-}) (withRedirect);
+export default compose<ComponentType>(
+    connect (mapStateToProps, {
+        followSuccess,
+        unfollowSuccess,
+        setCurrentPage,
+        getUsers: getUsersTC,
+        follow: followTC,
+        unfollow: unfollowTC
+    }),
+    withAuthRedirect
+)(UsersContainer)

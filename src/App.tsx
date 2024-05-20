@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import { Navbar } from './components/navbar/Navbar';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { News } from './components/news/News';
 import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
-import { DialogsContainer } from './components/dialogs/DialogsContainer';
 import { FriendsContainer } from './components/friends/FriendsContainer';
-import UsersContainer from './components/users/UsersContainer';
+import DialogsContainer from './components/dialogs/DialogsContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
+import UsersContainer from './components/users/UsersContainer';
 import HeaderContainer from './components/header/HeaderContainer';
 import { Login } from './login/Login';
 
