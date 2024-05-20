@@ -18,6 +18,7 @@ export type ProfilePageType = {
     profile: ProfileType
     posts: Array<PostType>
     newPostText: string
+    status: string
 }
 
 export type ProfileType = {
@@ -109,7 +110,8 @@ export let store: StoreType = {
                 { id: 2, post: "Hi, how are you?", likesCount: 20 },
                 { id: 3, post: "Hello, friend!", likesCount: 5 },
             ],
-            newPostText: 'it-kamasutra.com'
+            newPostText: 'it-kamasutra.com',
+            status: 'Hello, guys!'
         },
         dialogsPage: {
             dialogs: [

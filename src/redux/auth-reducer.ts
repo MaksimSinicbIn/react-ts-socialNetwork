@@ -13,13 +13,13 @@ const initialState: AuthDataType = {
         id: '1',
         email: 'sinicbIn@gmail.com',
         login: 'MaksimSinicbIn',
-        isAuth: false
+        isAuth: true
 }
 
 export const authReducer = (state = initialState, action: SetUserDataType) => {
     switch (action.type ) {
         case 'SET-USER-DATA':
-            return {...state, ...action.data, isAuth: false}
+            return {...state, ...action.data, isAuth: true}
         default:
             return state
     }

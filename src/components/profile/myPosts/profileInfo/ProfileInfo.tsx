@@ -2,12 +2,15 @@ import React from 'react';
 import style from './ProfileInfo.module.css';
 import { ProfileType } from '../../../../redux/profile-reducer';
 import Preloader from '../../../common/preloader/Preloader';
+import { ProfileStatus } from './ProfileStatus';
 
 type ProfileInfoPropsType = {
     profile: ProfileType
+    status: string
 }
 
-export const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
+export const ProfileInfo = ({profile, status}: ProfileInfoPropsType) => {
+
     if (!profile) {
         return <Preloader />
     }
@@ -18,6 +21,7 @@ export const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
             </div>
             <div className={style.descriptionBlock}>
                 <img src={profile.photos.small} alt='smallPhoto'/>
+                <ProfileStatus status={status}/>
                 <p>{profile.fullName}</p>
                 <input type='checkbox' checked={profile.lookingForAJob}/>
                 <p>{profile.lookingForAJobDescription}</p>

@@ -7,7 +7,7 @@ import { ProfilePagePropsType } from './ProfileContainer';
 export const Profile = (state: ProfilePagePropsType) => {
     return (
         <div>
-            <ProfileInfo profile={state.profile}/>
+            <ProfileInfo profile={state.profile} status={state.status}/>
             <MyPostsContainer />
         </div>
     );

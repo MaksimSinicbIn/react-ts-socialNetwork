@@ -6,6 +6,7 @@ export type ProfilePageType = {
     profile: ProfileType
     posts: Array<PostType>
     newPostText: string
+    status: string,
 }
 
 export type ProfileType = {
@@ -45,6 +46,7 @@ const initialState: ProfilePageType = {
         lookingForAJob: true,
         lookingForAJobDescription: '',
         fullName: 'Anton',
+        
         contacts: {
             github: '',
             vk: '',
@@ -65,7 +67,8 @@ const initialState: ProfilePageType = {
         { id: 2, post: "Hi, how are you?", likesCount: 20 },
         { id: 3, post: "Hello, friend!", likesCount: 5 },
     ],
-    newPostText: 'it-kamasutra.com'
+    newPostText: 'it-kamasutra.com',
+    status: 'Hello, guys!',
 }
 
 
@@ -80,6 +83,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
             return {...state, posts: [...state.posts, newPost], newPostText: ''};
         case 'UPDATE-NEWPOST-TEXT':
             return {...state, newPostText: action.nextText};
+        case 'UPDATE-PROFILE-STATUS':
+            return {...state, status: action.status};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile};
         default:
@@ -89,12 +94,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 
 export type AddPostActionType = ReturnType<typeof addPost>
 export type UpdateNewPostTextType = ReturnType<typeof updateNewPostText>
+export type UpdateProfileStatusType = ReturnType<typeof updateProfileStatus>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 
-export type ProfileActionsType = AddPostActionType | UpdateNewPostTextType | SetUserProfileType
+export type ProfileActionsType = AddPostActionType | UpdateNewPostTextType | SetUserProfileType | UpdateProfileStatusType
 
 export const addPost = () => ({ type: 'ADD-POST'} as const)
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
+export const updateProfileStatus = (status: string) => ({type: 'UPDATE-PROFILE-STATUS', status} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 
 export const getUserProfileTC = (userId: string): AppThunk => (dispatch: Dispatch) => {
