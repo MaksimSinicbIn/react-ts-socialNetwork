@@ -27,9 +27,11 @@ export const authReducer = (state = initialState, action: SetUserDataType) => {
 
 type SetUserDataType = ReturnType<typeof setUserData>
 
+// Action Creators
 export const setUserData = (data: AuthDataType) => ({type: 'SET-USER-DATA', data} as const)
 
-export const getUserDataTC = (): AppThunk => (dispatch: Dispatch) => {
+// Thunk Creators
+export const getUserData = (): AppThunk => (dispatch: Dispatch) => {
     authMeApi.authMeResponse()
         .then(data => {
             if (data.resultCode === 0) {

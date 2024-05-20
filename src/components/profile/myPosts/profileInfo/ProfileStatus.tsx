@@ -30,16 +30,21 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType, State
         this.props.updateUserStatus(this.state.status)
     }
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
+        this.setState({status: e.currentTarget.value})
+    }
+
+    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
+        
     }
 
     render() {
         return (
             <div>
                 {!this.state.editMode
-                    ? <div><span onDoubleClick={this.activateEditMode}>{this.props.status ? this.props.status : this.state.status}</span></div>
+                    ? <div><span onDoubleClick={this.activateEditMode}>{this.props.status}</span></div>
                     : <div><input type="text" autoFocus onChange={this.onStatusChange} onBlur={this.deActivateEditMode} value={this.state.status} /></div>
                 }
             </div>

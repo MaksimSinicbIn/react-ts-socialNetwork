@@ -90,7 +90,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
 
 // Thunk Creators
-export const getUsersTC = (currentPage: number, pageSize: number): AppThunk => (dispatch: Dispatch) => {
+export const getUsers = (currentPage: number, pageSize: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
     usersApi.getUsers(currentPage, pageSize).then(data => {
         dispatch(toggleIsFetching(false))
@@ -100,7 +100,7 @@ export const getUsersTC = (currentPage: number, pageSize: number): AppThunk => (
     })
 }
 
-export const followTC = (userId: number): AppThunk => (dispatch: Dispatch) => {
+export const follow = (userId: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersApi.follow(userId).then(data => {
         if (data.resultCode === 0) {
@@ -110,7 +110,7 @@ export const followTC = (userId: number): AppThunk => (dispatch: Dispatch) => {
     })
 }
 
-export const unfollowTC = (userId: number): AppThunk => (dispatch: Dispatch) => {
+export const unfollow = (userId: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersApi.unfollow(userId).then(data => {
         if (data.resultCode === 0) {

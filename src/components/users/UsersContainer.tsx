@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { AppRootStateType } from '../../redux/redux-store';
-import { followSuccess, followTC, getUsersTC, setCurrentPage, unfollowSuccess, unfollowTC, UsersPageType } from '../../redux/users-reducer';
+import { follow, followSuccess, getUsers, setCurrentPage, unfollow, unfollowSuccess, UsersPageType } from '../../redux/users-reducer';
 import { Users } from './Users';
 import Preloader from '../common/preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -76,9 +76,9 @@ export default compose<ComponentType>(
         followSuccess,
         unfollowSuccess,
         setCurrentPage,
-        getUsers: getUsersTC,
-        follow: followTC,
-        unfollow: unfollowTC
+        getUsers,
+        follow,
+        unfollow
     }),
     withAuthRedirect
 )(UsersContainer)

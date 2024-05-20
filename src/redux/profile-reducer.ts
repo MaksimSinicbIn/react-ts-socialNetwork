@@ -128,7 +128,7 @@ export const updateUserStatus = (status: string): AppThunk => (dispatch: Dispatc
     profileApi.updateStatus(status)
         .then(data => {
             if (data.resultCode === 0) {
-                dispatch(setUserStatus(data))
+                dispatch(setUserStatus(status))
             }
         })
 }

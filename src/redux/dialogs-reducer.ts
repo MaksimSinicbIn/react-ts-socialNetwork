@@ -55,5 +55,6 @@ export type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMessageT
 
 export type DialogsActionsType = AddMessageActionType | UpdateNewMessageTextActionType
 
+// Action Creators
 export const addMessage = () => ({ type: 'ADD-MESSAGE'} as const)
 export const updateNewMessageText = (nextMessageText: string) => ({type: 'UPDATE-NEWMESSAGE-TEXT', nextMessageText} as const)
