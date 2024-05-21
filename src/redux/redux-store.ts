@@ -6,13 +6,15 @@ import { usersReducer } from './users-reducer';
 import { authReducer } from './auth-reducer';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { useDispatch } from 'react-redux';
+import { reducer as formReducer} from 'redux-form';
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     sidebar: sidebarReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
