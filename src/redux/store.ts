@@ -11,13 +11,11 @@ export type RootStateType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageText: string
 }
 
 export type ProfilePageType = {
     profile: ProfileType
     posts: Array<PostType>
-    newPostText: string
     status: string
 }
 
@@ -110,7 +108,6 @@ export let store: StoreType = {
                 { id: 2, post: "Hi, how are you?", likesCount: 20 },
                 { id: 3, post: "Hello, friend!", likesCount: 5 },
             ],
-            newPostText: 'it-kamasutra.com',
             status: 'Hello, guys!'
         },
         dialogsPage: {
@@ -129,7 +126,6 @@ export let store: StoreType = {
                 { id: 4, message: "Yo" },
                 { id: 5, message: "Yo" },
             ],
-            newMessageText: 'Hey bro!'
         },
         sidebar: {
             friends: [

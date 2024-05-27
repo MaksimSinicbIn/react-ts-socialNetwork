@@ -5,7 +5,6 @@ import { profileApi } from "../api/api"
 export type ProfilePageType = {
     profile: ProfileType
     posts: Array<PostType>
-    newPostText: string
     status: string,
 }
 
@@ -67,7 +66,6 @@ const initialState: ProfilePageType = {
         { id: 2, post: "Hi, how are you?", likesCount: 20 },
         { id: 3, post: "Hello, friend!", likesCount: 5 },
     ],
-    newPostText: 'it-kamasutra.com',
     status: 'Hello, guys!',
 }
 
@@ -77,12 +75,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         case 'ADD-POST':
             const newPost = {
                 id: new Date().getTime(),
-                post: state.newPostText,
+                post: action.newPostText,
                 likesCount: 1
             };
-            return {...state, posts: [...state.posts, newPost], newPostText: ''};
-        case 'UPDATE-NEWPOST-TEXT':
-            return {...state, newPostText: action.nextText};
+            return {...state, posts: [...state.posts, newPost]};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile};
         case 'SET-USER-STATUS':
@@ -93,19 +89,16 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 }
 
 export type AddPostActionType = ReturnType<typeof addPost>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostText>
 export type SetUserProfileActionType= ReturnType<typeof setUserProfile>
 export type SetUserStatusActionType = ReturnType<typeof setUserStatus>
 
 export type ProfileActionsType =
 | AddPostActionType
-| UpdateNewPostTextActionType
 | SetUserProfileActionType
 | SetUserStatusActionType
 
 // Action Creators
-export const addPost = () => ({ type: 'ADD-POST'} as const)
-export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
+export const addPost = (newPostText: string) => ({ type: 'ADD-POST', newPostText} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
 
