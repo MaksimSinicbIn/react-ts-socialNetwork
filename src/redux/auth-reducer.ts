@@ -17,7 +17,7 @@ const initialState: AuthDataType = {
         isAuth: false
 }
 
-export const authReducer = (state = initialState, action: AuthActionsType) => {
+export const authReducer = (state = initialState, action: AuthActionsType): AuthDataType=> {
     switch (action.type ) {
         case 'SET-USER-DATA':
             return {...state, ...action.payload}
@@ -36,7 +36,7 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 
 // Thunk Creators
 export const getAuthUserData = (): AppThunk => (dispatch: Dispatch) => {
-    authMeApi.me()
+    return authMeApi.me()
         .then(data => {
             if (data.resultCode === ResultCodesEnum.Success) {
                 let {id, login, email} = data.data

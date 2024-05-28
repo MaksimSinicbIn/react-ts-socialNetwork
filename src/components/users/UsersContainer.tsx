@@ -4,7 +4,6 @@ import { AppRootStateType } from '../../redux/redux-store';
 import { follow, followSuccess, getUsers, setCurrentPage, unfollow, unfollowSuccess, UsersPageType } from '../../redux/users-reducer';
 import { Users } from './Users';
 import Preloader from '../common/preloader/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 class UsersContainer extends React.Component<UsersPagePropsType> {
@@ -79,6 +78,5 @@ export default compose<ComponentType>(
         getUsers,
         follow,
         unfollow
-    }),
-    withAuthRedirect
+    })
 )(UsersContainer)
