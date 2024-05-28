@@ -10,12 +10,12 @@ import { compose } from "redux";
 class ProfileContainer extends React.Component<PropsType, any> {
 
     componentDidMount(): void {
-        let userId = this.props.match.params.userId
+        let userId: number | null = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = '30984'
+            userId = this.props.autorizedUserId
         }
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+        this.props.getUserProfile(userId as number)
+        this.props.getUserStatus(userId as number)
     }
 
     render() {
@@ -32,11 +32,13 @@ type PathParamsType = {
 type MapStatePropsType = {
     profile: ProfileType
     status: string
+    autorizedUserId: number | null
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
-    getUserProfile: (userId: string) => void
-    getUserStatus: (userId: string) => void
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
 }
 
@@ -47,7 +49,9 @@ export type PropsType = RouteComponentProps<PathParamsType> & ProfilePagePropsTy
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        autorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 

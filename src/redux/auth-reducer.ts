@@ -1,6 +1,7 @@
 import { Dispatch } from "redux"
 import { AppThunk } from "./redux-store"
 import { ResultCodesEnum, authMeApi } from "../api/api"
+import { stopSubmit } from "redux-form"
 
 export type AuthDataType = {
     id: number | null
@@ -49,6 +50,9 @@ export const login = (email: string, password: string, rememberMe: boolean): App
         .then(data => {
             if (data.resultCode === ResultCodesEnum.Success) {
                 dispatch(getAuthUserData())
+            } else {
+                const message = data.messages.length > 0 ? data.messages[0] : 'Something went wrong...'
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 }
