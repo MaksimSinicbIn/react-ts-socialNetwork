@@ -1,13 +1,6 @@
 import axios from "axios"
 import { UserType } from "../redux/users-reducer"
 
-type AuthMeApiType = {
-    email: string
-    id: string
-    login: string
-    isAuth: boolean
-}
-
 type GetUsersResponseType<D = {}> = {
     items: D
     totalCount: number
@@ -18,7 +11,20 @@ type ResponseType<D = {}> = {
     data: D
     fieldsErrors: string[]
     messages: string[]
-    resultCode: number
+    resultCode: ResultCodesEnum
+}
+
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
+
+type AuthMeApiType = {
+    email: string
+    id: number
+    login: string
+    isAuth: boolean
 }
 
 export const instance = axios.create({
@@ -30,8 +36,16 @@ export const instance = axios.create({
 })
 
 export const authMeApi = {
-    authMeResponse () {
+    me () {
         return instance.get<ResponseType<AuthMeApiType>>(`auth/me`)
+        .then(res => res.data)
+    },
+    login (email: string, password: string, rememberMe: boolean = false) {
+        return instance.post<ResponseType<{ id: number}>>(`auth/login`, {email, password, rememberMe})
+        .then(res => res.data)
+    },
+    logOut () {
+        return instance.delete(`auth/login`)
         .then(res => res.data)
     }
 }

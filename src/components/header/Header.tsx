@@ -10,7 +10,7 @@ export const Header = (props: AuthPropsType) => {
             <div className={style.loginSection}>
                 {
                     props.data.isAuth
-                        ? props.data.login
+                        ? <div>{props.data.login} <button onClick={props.logOut}>Log Out</button></div>
                         : <button><NavLink to={'/login'}>Login</NavLink></button>
                 }
             </div>

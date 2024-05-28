@@ -1,5 +1,5 @@
 import { Dispatch } from "redux"
-import { usersApi } from "../api/api"
+import { ResultCodesEnum, usersApi } from "../api/api"
 import { AppThunk } from "./redux-store"
 
 export type UsersPageType = {
@@ -103,7 +103,7 @@ export const getUsers = (currentPage: number, pageSize: number): AppThunk => (di
 export const follow = (userId: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersApi.follow(userId).then(data => {
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(followSuccess(userId))
         }
         dispatch(toggleFollowingProgress(false, userId))
@@ -113,7 +113,7 @@ export const follow = (userId: number): AppThunk => (dispatch: Dispatch) => {
 export const unfollow = (userId: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersApi.unfollow(userId).then(data => {
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(unfollowSuccess(userId))
         }
         dispatch(toggleFollowingProgress(false, userId))

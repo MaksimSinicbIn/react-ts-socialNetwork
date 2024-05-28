@@ -1,41 +1,63 @@
 import { Dispatch } from "redux"
 import { AppThunk } from "./redux-store"
-import { authMeApi } from "../api/api"
+import { ResultCodesEnum, authMeApi } from "../api/api"
 
 export type AuthDataType = {
-    id: string
-    email: string
-    login: string
+    id: number | null
+    email: string | null
+    login: string | null
     isAuth: boolean
 }
 
 const initialState: AuthDataType = {
-        id: '30984',
-        email: 'sinicbIn@gmail.com',
-        login: 'MaksimSinicbIn',
-        isAuth: true
+        id: null,
+        email: null,
+        login: null,
+        isAuth: false
 }
 
-export const authReducer = (state = initialState, action: SetUserDataType) => {
+export const authReducer = (state = initialState, action: AuthActionsType) => {
     switch (action.type ) {
         case 'SET-USER-DATA':
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.payload}
         default:
             return state
     }
 }
 
-type SetUserDataType = ReturnType<typeof setUserData>
+type SetUserDataActionType = ReturnType<typeof setAuthUserData>
+
+type AuthActionsType = SetUserDataActionType
 
 // Action Creators
-export const setUserData = (data: AuthDataType) => ({type: 'SET-USER-DATA', data} as const)
+export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) =>
+    ({type: 'SET-USER-DATA', payload: {id, email, login, isAuth}} as const)
 
 // Thunk Creators
-export const getUserData = (): AppThunk => (dispatch: Dispatch) => {
-    authMeApi.authMeResponse()
+export const getAuthUserData = (): AppThunk => (dispatch: Dispatch) => {
+    authMeApi.me()
         .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserData(data.data))
+            if (data.resultCode === ResultCodesEnum.Success) {
+                let {id, login, email} = data.data
+                dispatch(setAuthUserData(id, email, login, true))
+            }
+        })
+}
+
+export const login = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+    authMeApi.login(email, password, rememberMe)
+        .then(data => {
+            if (data.resultCode === ResultCodesEnum.Success) {
+                dispatch(getAuthUserData())
+            }
+        })
+}
+
+export const logOut = (): AppThunk => (dispatch: Dispatch) => {
+    authMeApi.logOut()
+        .then(data => {
+            if (data.resultCode === ResultCodesEnum.Success) {
+                dispatch(setAuthUserData(null, null, null, false))
             }
         })
 }
