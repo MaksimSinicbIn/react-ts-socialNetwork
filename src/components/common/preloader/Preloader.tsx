@@ -4,7 +4,7 @@ import preloader from '../../../assets/images/tube-spinner.svg';
 export const Preloader = () => {
     return (
         <div>
-            <img src={preloader}/>
+            <img src={preloader} alt='preloader'/>
         </div>
     );
 };

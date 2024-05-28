@@ -5,7 +5,7 @@ import { Message } from './message/Message';
 import { DialogsPropsType } from './DialogsContainer';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator, required } from '../../utils/validators/validators';
-import { FormControl } from '../common/formsControl/FormsControl';
+import { FormControl, Input } from '../common/formsControl/FormsControl';
 
 type AddMessageFormValuesType = {
     newMessageBody: string
@@ -43,7 +43,7 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormValuesType>> = (p
         <form className={style.addMessageForm} onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    component={FormControl}
+                    component={Input}
                     name='newMessageBody'
                     type='textarea'
                     placeholder='Enter your message'

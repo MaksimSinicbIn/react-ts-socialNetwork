@@ -4,7 +4,7 @@ import { Post } from './post/Post';
 import { MyPostsPropsType } from './MyPostsContainer';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
-import { FormControl } from '../../common/formsControl/FormsControl';
+import { Input } from '../../common/formsControl/FormsControl';
 
 type AddPostFormValuesType = {
     newPostText: string
@@ -36,7 +36,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddPostFormValuesType>> = (prop
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    component={FormControl}
+                    component={Input}
                     type='textarea'
                     name='newPostText'
                     placeholder='Enter your message'

@@ -30,7 +30,7 @@ export const Users = (props: UsersPropsType) => {
         }
     }
 
-    let pagesCount = Math.ceil(props.usersPage.totalUsersCount / props.usersPage.pageSize)
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
     for (let i = startPage; i <= endPage && i <= pagesCount; i++) {
         pages.push(i)
@@ -44,7 +44,7 @@ export const Users = (props: UsersPropsType) => {
                     const onClickPageHandler = () => {props.onPageChanged(page)}
                     return (
                         <span key={page}
-                            className={props.usersPage.currentPage === page ? s.selectedPage : ''}
+                            className={props.currentPage === page ? s.selectedPage : ''}
                             onClick={onClickPageHandler}>{startPage}</span>
                     )
                 })}
@@ -52,7 +52,7 @@ export const Users = (props: UsersPropsType) => {
             </div>
             <div className={s.userList}>
                 {
-                    props.usersPage.users.map(u => {
+                    props.users.map(u => {
                         const onFollowClickHandler = () => {props.follow(u.id)}
                         const onUnFollowClickHandler = () => {props.unfollow(u.id)}
                         return (
@@ -69,11 +69,11 @@ export const Users = (props: UsersPropsType) => {
                                         u.followed
                                             ? <button
                                                 onClick={onUnFollowClickHandler}
-                                                disabled={props.usersPage.followingInProgress.some(id => id === u.id)}
+                                                disabled={props.followingInProgress.some(id => id === u.id)}
                                                 >Unfollow</button>
                                             : <button
                                                 onClick={onFollowClickHandler}
-                                                disabled={props.usersPage.followingInProgress.some(id => id === u.id)}
+                                                disabled={props.followingInProgress.some(id => id === u.id)}
                                                 >Follow</button>
                                     }
                                 </div>

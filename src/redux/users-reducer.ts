@@ -90,7 +90,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
 export const updateNewPostText = (nextText: string) => ({type: 'UPDATE-NEWPOST-TEXT', nextText} as const)
 
 // Thunk Creators
-export const getUsers = (currentPage: number, pageSize: number): AppThunk => (dispatch: Dispatch) => {
+export const getRequestUsers = (currentPage: number, pageSize: number): AppThunk => (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
     usersApi.getUsers(currentPage, pageSize).then(data => {
         dispatch(toggleIsFetching(false))
