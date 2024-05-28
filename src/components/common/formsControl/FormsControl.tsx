@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { WrappedFieldProps } from 'redux-form';
 import s from './FormsControl.module.css'
 
 type FormsControlPropsType = WrappedFieldProps & {
-    type: 'textarea' | 'input'
+    children: ReactNode
 }
 
-export const FormControl = ({ input, meta, type, ...props }: FormsControlPropsType) => {
+export const FormControl = ({ input, meta, children, ...props }: FormsControlPropsType) => {
 
     const hasError = meta.touched && meta.error
-
-    const Tag = type
 
     return (
         <div className={`${s.formControl} ${hasError ? s.error : ''}`}>
             <div>
-                <Tag {...input} {...props} />
+                {children}
             </div>
             <div>
                 {hasError && <span className={s.span}>{meta.error}</span>}
@@ -24,34 +22,12 @@ export const FormControl = ({ input, meta, type, ...props }: FormsControlPropsTy
     );
 }
 
-// export const Textarea: React.FC<FormsControlPropsType> = ({ input, meta, tagName, ...props }) => {
+export const Textarea: React.FC<FormsControlPropsType> = (props) => {
+    const { input, meta, children, ...restProps } = props
+    return <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
+};
 
-//     const hasError = meta.touched && meta.error
-
-//     return (
-//         <div className={`${s.formControl} ${hasError ? s.error : ''}`}>
-//             <div>
-//                 <textarea {...input} {...props} />
-//             </div>
-//             <div>
-//                 {hasError && <span className={s.span}>{meta.error}</span>}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export const Input: React.FC<FormsControlPropsType> = ({ input, meta, tagName, ...props }) => {
-
-//     const hasError = meta.touched && meta.error
-
-//     return (
-//         <div className={`${s.formControl} ${hasError ? s.error : ''}`}>
-//             <div>
-//                 <textarea {...input} {...props} />
-//             </div>
-//             <div>
-//                 {hasError && <span className={s.span}>{meta.error}</span>}
-//             </div>
-//         </div>
-//     );
-// };
+export const Input: React.FC<FormsControlPropsType> = (props) => {
+    const { input, meta, children, ...restProps } = props
+    return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
+};
