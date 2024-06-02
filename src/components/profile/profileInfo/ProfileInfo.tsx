@@ -1,8 +1,11 @@
 import React from 'react';
 import style from './ProfileInfo.module.css';
-import { ProfileType } from '../../../../redux/profile-reducer';
-import Preloader from '../../../common/preloader/Preloader';
+import { ProfileType } from '../../../redux/profile-reducer';
+import { Preloader } from '../../common/preloader/Preloader';
 import { ProfileStatus } from './ProfileStatus';
+import { ProfileStatusWithHooks } from './ProfileStatusWithHooks';
+
+
 
 type ProfileInfoPropsType = {
     profile: ProfileType
@@ -22,7 +25,7 @@ export const ProfileInfo = ({profile, status, updateUserStatus}: ProfileInfoProp
             </div>
             <div className={style.descriptionBlock}>
                 <img src={profile.photos.small} alt='smallPhoto'/>
-                <ProfileStatus status={status} updateUserStatus={updateUserStatus}/>
+                <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus}/>
                 <p>{profile.fullName}</p>
                 <input type='checkbox' checked={profile.lookingForAJob}/>
                 <p>{profile.lookingForAJobDescription}</p>
