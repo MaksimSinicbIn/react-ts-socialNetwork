@@ -3,16 +3,8 @@ import style from './ProfileInfo.module.css';
 
 type ProfileStatusPropsType = {
     status: string
-    //statusState: StateType
     updateUserStatus: (status: string) => void
 }
-
-// type StateType = {
-//     editMode: boolean
-//     status: string
-// }
-
-//React.FC<ProfileStatusPropsType, StateType>
 
 export const ProfileStatusWithHooks= (props: ProfileStatusPropsType) => {
 

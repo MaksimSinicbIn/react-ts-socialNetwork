@@ -47,12 +47,6 @@ type MapDispatchPropsType = {
 
 export type UsersPagePropsType = MapStatePropsType & MapDispatchPropsType
 
-// const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
-//     return {
-//         usersPage: state.usersPage
-//     }
-// }
-
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
@@ -63,29 +57,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         followingInProgress: getFollowingInProgress(state),
     }
 }
-
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId: number) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users: UserType[]) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (currentPage: number) => {
-//             dispatch(setCurrentPageAC(currentPage))
-//         },
-//         setTotalUsersCount: (totalCount: number) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         toggleIsFetching: (isFetching: boolean) => {
-//             dispatch(toggleIsFetchingAC(isFetching))
-//         }
-//     }
-// }
 
 export default compose<ComponentType>(
     connect (mapStateToProps, {

@@ -22,14 +22,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-//     return {
-//         addMessage: () => {
-//             dispatch(addMessageAC())
-//         }
-//     }
-// }
-
 export default compose<ComponentType>(
     connect (mapStateToProps, {addMessage}),
     withAuthRedirect
