@@ -79,6 +79,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
                 likesCount: 1
             };
             return {...state, posts: [...state.posts, newPost]};
+        case 'DELETE-POST':
+            return {...state, posts: state.posts.filter( p => p.id !== action.postId)};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile};
         case 'SET-USER-STATUS':
@@ -89,16 +91,19 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 }
 
 export type AddPostActionType = ReturnType<typeof addPost>
+export type DeletePostActionType = ReturnType<typeof deletePost>
 export type SetUserProfileActionType= ReturnType<typeof setUserProfile>
 export type SetUserStatusActionType = ReturnType<typeof setUserStatus>
 
 export type ProfileActionsType =
 | AddPostActionType
+| DeletePostActionType
 | SetUserProfileActionType
 | SetUserStatusActionType
 
 // Action Creators
 export const addPost = (newPostText: string) => ({ type: 'ADD-POST', newPostText} as const)
+export const deletePost = (postId: number) => ({ type: 'DELETE-POST', postId} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
 
