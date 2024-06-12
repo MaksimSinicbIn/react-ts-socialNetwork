@@ -6,16 +6,16 @@ import { News } from './components/news/News';
 import { Music } from './components/music/Music';
 import { Settings } from './components/settings/Settings';
 import { FriendsContainer } from './components/friends/FriendsContainer';
-import DialogsContainer from './components/dialogs/DialogsContainer';
-import ProfileContainer from './components/profile/ProfileContainer';
-import UsersContainer from './components/users/UsersContainer';
-import HeaderContainer from './components/header/HeaderContainer';
-import Login from './login/Login';
 import { connect } from 'react-redux';
 import { AppRootStateType } from './redux/redux-store';
 import { initializeApp } from './redux/app-reducer';
 import { compose } from 'redux';
+import Login from './login/Login';
 import Preloader from './components/common/preloader/Preloader';
+import UsersContainer from './components/users/UsersContainer';
+import HeaderContainer from './components/header/HeaderContainer';
+import DialogsContainer from './components/dialogs/DialogsContainer';
+import ProfileContainer from './components/profile/ProfileContainer';
 
 
 class App extends React.Component<AppPropsType> {
@@ -25,7 +25,7 @@ class App extends React.Component<AppPropsType> {
     }
 
     render() {
-        if(!this.props.isInitialized) {
+        if (!this.props.isInitialized) {
             return <Preloader />
         }
 
@@ -65,4 +65,4 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export default compose<ComponentType>(withRouter, connect(mapStateToProps, {initializeApp}))(App)
+export default compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App)

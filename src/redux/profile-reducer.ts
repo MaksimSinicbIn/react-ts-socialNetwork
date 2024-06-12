@@ -45,7 +45,7 @@ const initialState: ProfilePageType = {
         lookingForAJob: true,
         lookingForAJobDescription: '',
         fullName: 'Maksim_SinicbIn',
-        
+
         contacts: {
             github: '',
             vk: '',
@@ -56,7 +56,7 @@ const initialState: ProfilePageType = {
             youtube: '',
             mainLink: ''
         },
-        photos:{
+        photos: {
             small: '',
             large: ''
         }
@@ -69,22 +69,21 @@ const initialState: ProfilePageType = {
     status: 'Hello, guys!',
 }
 
-
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType) => {
-    switch(action.type) {
-        case 'ADD-POST':
+    switch (action.type) {
+        case 'profile/ADD-POST':
             const newPost = {
                 id: new Date().getTime(),
                 post: action.newPostText,
                 likesCount: 1
             };
-            return {...state, posts: [...state.posts, newPost]};
-        case 'DELETE-POST':
-            return {...state, posts: state.posts.filter( p => p.id !== action.postId)};
-        case 'SET-USER-PROFILE':
-            return {...state, profile: action.profile};
-        case 'SET-USER-STATUS':
-            return {...state, status: action.status};
+            return { ...state, posts: [...state.posts, newPost] };
+        case 'profile/DELETE-POST':
+            return { ...state, posts: state.posts.filter(p => p.id !== action.postId) };
+        case 'profile/SET-USER-PROFILE':
+            return { ...state, profile: action.profile };
+        case 'profile/SET-USER-STATUS':
+            return { ...state, status: action.status };
         default:
             return state
     }
@@ -92,41 +91,35 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 
 export type AddPostActionType = ReturnType<typeof addPost>
 export type DeletePostActionType = ReturnType<typeof deletePost>
-export type SetUserProfileActionType= ReturnType<typeof setUserProfile>
+export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetUserStatusActionType = ReturnType<typeof setUserStatus>
 
 export type ProfileActionsType =
-| AddPostActionType
-| DeletePostActionType
-| SetUserProfileActionType
-| SetUserStatusActionType
+    | AddPostActionType
+    | DeletePostActionType
+    | SetUserProfileActionType
+    | SetUserStatusActionType
 
 // Action Creators
-export const addPost = (newPostText: string) => ({ type: 'ADD-POST', newPostText} as const)
-export const deletePost = (postId: number) => ({ type: 'DELETE-POST', postId} as const)
-export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
-export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
+export const addPost = (newPostText: string) => ({ type: 'profile/ADD-POST', newPostText } as const)
+export const deletePost = (postId: number) => ({ type: 'profile/DELETE-POST', postId } as const)
+export const setUserProfile = (profile: ProfileType) => ({ type: 'profile/SET-USER-PROFILE', profile } as const)
+export const setUserStatus = (status: string) => ({ type: 'profile/SET-USER-STATUS', status } as const)
 
 // Thunk Creators
-export const getUserProfile = (userId: string): AppThunk => (dispatch: Dispatch) => {
-    profileApi.getProfile(userId)
-        .then(data => {
-            dispatch(setUserProfile(data))
-        })
+export const getUserProfile = (userId: string): AppThunk => async (dispatch: Dispatch) => {
+    const data = await profileApi.getProfile(userId)
+    dispatch(setUserProfile(data))
 }
 
-export const getUserStatus = (userId: string): AppThunk => (dispatch: Dispatch) => {
-    profileApi.getStatus(userId)
-        .then(data => {
-            dispatch(setUserStatus(data))
-        })
+export const getUserStatus = (userId: string): AppThunk => async (dispatch: Dispatch) => {
+    const data = await profileApi.getStatus(userId)
+    dispatch(setUserStatus(data))
 }
 
-export const updateUserStatus = (status: string): AppThunk => (dispatch: Dispatch) => {
-    profileApi.updateStatus(status)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserStatus(status))
-            }
-        })
+export const updateUserStatus = (status: string): AppThunk => async (dispatch: Dispatch) => {
+    const data = await profileApi.updateStatus(status)
+    if (data.resultCode === 0) {
+        dispatch(setUserStatus(status))
+    }
 }

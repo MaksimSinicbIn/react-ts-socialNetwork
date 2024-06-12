@@ -1,24 +1,26 @@
 import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { AppRootStateType } from '../../redux/redux-store';
-import { follow, followSuccess, getRequestUsers, setCurrentPage, unfollow, unfollowSuccess, UserType } from '../../redux/users-reducer';
 import { Users } from './Users';
 import Preloader from '../common/preloader/Preloader';
-import { compose } from 'redux';
+import { follow, followSuccess, getRequestUsers, setCurrentPage, unfollow, unfollowSuccess, UserType } from '../../redux/users-reducer';
 import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from '../../redux/users-selectors';
 
 class UsersContainer extends React.Component<UsersPagePropsType> {
 
-    componentDidMount(): void {
-        this.props.getRequestUsers(this.props.currentPage, this.props.pageSize)
+    componentDidMount() {
+        const { currentPage, pageSize } = this.props
+        this.props.getRequestUsers(currentPage, pageSize)
     }
     onPageChanged = (pageNumber: number) => {
-        this.props.getRequestUsers(pageNumber, this.props.pageSize)
+        const { pageSize } = this.props
+        this.props.getRequestUsers(pageNumber, pageSize)
     }
 
     render() {
         return <>
-        { this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <Preloader /> : null}
             <Users
                 onPageChanged={this.onPageChanged}
                 {...this.props} // UsersPagePropsType
@@ -33,7 +35,7 @@ type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<any>
+    followingInProgress: Array<number>
 }
 
 type MapDispatchPropsType = {
@@ -59,7 +61,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export default compose<ComponentType>(
-    connect (mapStateToProps, {
+    connect(mapStateToProps, {
         followSuccess,
         unfollowSuccess,
         setCurrentPage,

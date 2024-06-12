@@ -21,14 +21,3 @@
     height: 120px;
     border-radius: 50%;
 }
-
-.selectedPage {
-    font-weight: bold;
-}
-
-.selector {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import style from './MyPosts.module.css';
+import s from './MyPosts.module.css';
 import { Post } from './post/Post';
 import { MyPostsPropsType } from './MyPostsContainer';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
@@ -12,21 +12,21 @@ type AddPostFormValuesType = {
 
 const maxLength15 = maxLengthCreator(15)
 
-export const MyPosts = memo((props: MyPostsPropsType) => {
-console.log('myPosts render');
+export const MyPosts = memo(({ posts, addPost }: MyPostsPropsType) => {
+    console.log('myPosts render');
 
-    let postsElements = props.posts.map( p => <Post key={p.id} id={p.id} message={p.post} likesCounts={p.likesCount} /> );
+    let postsElements = posts.map(p => <Post key={p.id} id={p.id} message={p.post} likesCounts={p.likesCount} />);
 
     const onAddPost = (values: AddPostFormValuesType) => {
-        props.addPost(values.newPostText)
+        addPost(values.newPostText)
     }
 
     return (
-        <div className={style.postsBlock}>
+        <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <AddNewPostReduxForm onSubmit={onAddPost}/>
-            <div className={style.posts}>
-                { postsElements }
+            <AddNewPostReduxForm onSubmit={onAddPost} />
+            <div className={s.posts}>
+                {postsElements}
             </div>
         </div>
     );
@@ -51,4 +51,4 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddPostFormValuesType>> = (prop
     )
 }
 
-const AddNewPostReduxForm = reduxForm<AddPostFormValuesType>({form: 'profileAddNewPostForm'}) (AddNewPostForm)
+const AddNewPostReduxForm = reduxForm<AddPostFormValuesType>({ form: 'profileAddNewPostForm' })(AddNewPostForm)

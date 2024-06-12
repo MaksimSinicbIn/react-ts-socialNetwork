@@ -6,7 +6,7 @@ type ProfileStatusPropsType = {
     updateUserStatus: (status: string) => void
 }
 
-export const ProfileStatusWithHooks= (props: ProfileStatusPropsType) => {
+export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const [status, setStatus] = useState(props.status)
@@ -28,12 +28,12 @@ export const ProfileStatusWithHooks= (props: ProfileStatusPropsType) => {
         props.updateUserStatus(status)
     }
 
-        return (
-            <div>
-                {!editMode
-                    ? <div><span onDoubleClick={activateEditMode}>{props.status || '------'}</span></div>
-                    : <div><input type="text" autoFocus onChange={onStatusChange} onBlur={deActivateEditMode} value={status} /></div>
-                }
-            </div>
-        )
-    }
+    return (
+        <div>
+            {!editMode
+                ? <div><span onDoubleClick={activateEditMode}>{props.status || '------'}</span></div>
+                : <div><input type="text" autoFocus onChange={onStatusChange} onBlur={deActivateEditMode} value={status} /></div>
+            }
+        </div>
+    )
+}

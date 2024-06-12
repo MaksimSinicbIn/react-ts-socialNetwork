@@ -1,12 +1,12 @@
 import React from 'react';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-import { Input } from '../components/common/formsControl/FormsControl';
+import s from '../components/common/formsControl/FormsControl.module.css'
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { Input, createField } from '../components/common/formsControl/FormsControl';
 import { required } from '../utils/validators/validators';
 import { AppRootStateType } from '../redux/redux-store';
 import { connect } from 'react-redux';
 import { login } from '../redux/auth-reducer';
 import { Redirect } from 'react-router-dom';
-import s from '../components/common/formsControl/FormsControl.module.css'
 
 export type FormDataType = {
     email: string,
@@ -32,37 +32,13 @@ const Login = (props: LoginPagePropsType) => {
     );
 };
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({ handleSubmit, error }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field
-                    placeholder='Email'
-                    name='email'
-                    component={Input}
-                    validate={[required]}
-                />
-            </div>
-            <div>
-                <Field
-                    placeholder='Password'
-                    name='password'
-                    type='password'
-                    component={Input}
-                    validate={[required]} 
-                />
-            </div>
-            <div>
-                <Field
-                    name='rememberMe'
-                    type='checkbox'
-                    component={Input}
-                    validate={[]}
-                /> Remember me
-            </div>
-            {props.error && <div className={s.formSummaryError}>
-                {props.error}
-            </div>}
+        <form onSubmit={handleSubmit}>
+            {createField('Email', 'email', [required], Input)}
+            {createField('Password', 'password', [required], Input, { type: 'password' })}
+            {createField(undefined, 'rememberMe', [], Input, { type: 'checkbox' }, 'Remember me')}
+            {error && <div className={s.formSummaryError}>{error}</div>}
             <div>
                 <button>Log In</button>
             </div>
@@ -89,4 +65,4 @@ const mapStateToProps = (state: AppRootStateType) => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {login}) (Login)
+export default connect(mapStateToProps, { login })(Login)

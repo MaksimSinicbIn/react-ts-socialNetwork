@@ -1,5 +1,5 @@
-import { DialogsActionsType, dialogsReducer} from "./dialogs-reducer"
-import { ProfileActionsType, profileReducer} from "./profile-reducer"
+import { DialogsActionsType, dialogsReducer } from "./dialogs-reducer"
+import { ProfileActionsType, profileReducer } from "./profile-reducer"
 import { sidebarReducer } from "./sidebar-reducer"
 
 export type RootStateType = {
@@ -98,7 +98,7 @@ export let store: StoreType = {
                     youtube: '',
                     mainLink: ''
                 },
-                photos:{
+                photos: {
                     small: '',
                     large: ''
                 }
@@ -129,24 +129,24 @@ export let store: StoreType = {
         },
         sidebar: {
             friends: [
-                { id: 1, name: "Dimych", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'},
-                { id: 2, name: "Andrey", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'},
-                { id: 3, name: "Sveta", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album'}
+                { id: 1, name: "Dimych", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album' },
+                { id: 2, name: "Andrey", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album' },
+                { id: 3, name: "Sveta", avatar: 'https://sun9-64.userapi.com/impg/mQnQb3d1jJ9y9KfsDwtdb2aD2J7VyhfxBadOgg/_0yQfA3B4p8.jpg?size=241x225&quality=96&sign=67c70c59641e14bcdfd925c60b702eb9&type=album' }
             ]
         }
     },
-    _callSubscriber () {
+    _callSubscriber() {
         console.log('State changed');
     },
 
-    subscribe (observer) {
+    subscribe(observer) {
         this._callSubscriber = observer // observer - наблюдатель
     },
     getState() {
         return this._state
     },
 
-    dispatch (action) {
+    dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action as ProfileActionsType);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action as DialogsActionsType);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);

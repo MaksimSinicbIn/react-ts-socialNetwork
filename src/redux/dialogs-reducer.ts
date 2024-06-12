@@ -34,7 +34,7 @@ const initialState: DialogsPageType = {
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType): DialogsPageType => {
     switch(action.type) {
-        case 'ADD-MESSAGE':
+        case 'dialogs/ADD-MESSAGE':
             const newMessage = {
                 id: new Date().getTime(),
                 message: action.newMessageBody,
@@ -50,4 +50,4 @@ export type AddMessageActionType = ReturnType<typeof addMessage>
 export type DialogsActionsType = AddMessageActionType
 
 // Action Creators
-export const addMessage = (newMessageBody: string) => ({ type: 'ADD-MESSAGE', newMessageBody} as const)
+export const addMessage = (newMessageBody: string) => ({ type: 'dialogs/ADD-MESSAGE', newMessageBody} as const)
