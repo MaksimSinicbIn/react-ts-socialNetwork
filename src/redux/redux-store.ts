@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { appReducer } from './app-reducer';
 
+
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
@@ -19,7 +20,11 @@ export const rootReducer = combineReducers({
     form: formReducer
 });
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+// Подключение Redux DevTools к проекту
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__|| compose
+
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 export type AppStoreType = typeof store
 
