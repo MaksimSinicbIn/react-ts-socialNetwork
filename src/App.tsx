@@ -1,22 +1,21 @@
 import React, { ComponentType } from 'react';
 import './App.css';
-import { Navbar } from './components/navbar/Navbar';
-import { Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { Provider, connect } from 'react-redux';
+import { initializeApp } from './redux/app-reducer';
+import { AppRootStateType, store } from './redux/redux-store';
 import { News } from './components/news/News';
 import { Music } from './components/music/Music';
+import { Navbar } from './components/navbar/Navbar';
 import { Settings } from './components/settings/Settings';
 import { FriendsContainer } from './components/friends/FriendsContainer';
-import { connect } from 'react-redux';
-import { AppRootStateType } from './redux/redux-store';
-import { initializeApp } from './redux/app-reducer';
-import { compose } from 'redux';
 import Login from './login/Login';
 import Preloader from './components/common/preloader/Preloader';
 import UsersContainer from './components/users/UsersContainer';
 import HeaderContainer from './components/header/HeaderContainer';
 import DialogsContainer from './components/dialogs/DialogsContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
-
 
 class App extends React.Component<AppPropsType> {
 
@@ -65,4 +64,16 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export default compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App)
+const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App)
+
+const SocialNetworkApp = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer />
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default SocialNetworkApp
