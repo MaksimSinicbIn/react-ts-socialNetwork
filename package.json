@@ -2,7 +2,7 @@
   "name": "samurai-way",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/MaksimSinicbIn/social-network-react-ts",
+  "homepage": "https://MaksimSinicbIn.github.io/social-network-react-ts",
   "dependencies": {
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
