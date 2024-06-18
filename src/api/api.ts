@@ -1,6 +1,6 @@
 import axios from "axios"
 import { UserType } from "../redux/users-reducer"
-import { PhotoType, savePhoto } from "../redux/profile-reducer"
+import { PhotoType, ProfileType } from "../redux/profile-reducer"
 
 type GetUsersResponseType<D = {}> = {
     items: D
@@ -37,52 +37,57 @@ export const instance = axios.create({
 })
 
 export const authMeApi = {
-    me () {
+    me() {
         return instance.get<ResponseType<AuthMeApiType>>(`auth/me`)
-        .then(res => res.data)
+            .then(res => res.data)
     },
-    login (email: string, password: string, rememberMe: boolean = false) {
-        return instance.post<ResponseType<{ id: number}>>(`auth/login`, {email, password, rememberMe})
-        .then(res => res.data)
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post<ResponseType<{ id: number }>>(`auth/login`, { email, password, rememberMe })
+            .then(res => res.data)
     },
-    logOut () {
+    logOut() {
         return instance.delete(`auth/login`)
-        .then(res => res.data)
+            .then(res => res.data)
     }
 }
 
 export const profileApi = {
-    getProfile (userId: string) {
+    getProfile(userId: string) {
         return instance.get(`profile/${userId}`)
-        .then(res => res.data)
+            .then(res => res.data)
     },
-    getStatus (userId: string) {
+    getStatus(userId: string) {
         return instance.get(`profile/status/${userId}`)
-        .then(res => res.data)
+            .then(res => res.data)
     },
-    updateStatus (status: string) {
+    updateStatus(status: string) {
         return instance.put(`profile/status`, { status })
-        .then(res => res.data)
+            .then(res => res.data)
     },
-    savePhoto (photoFile: any) {
+    savePhoto(photoFile: any) {
         const formData = new FormData()
         formData.append('image', photoFile)
         return instance.put<ResponseType<PhotoType>>(`profile/photo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-        .then(res => res.data)
-    }
+            .then(res => res.data)
+    },
+    saveProfile(profile: ProfileType) {
+        return instance.put(`profile`, profile)
+            .then(res => res.data)
+    },
+
 }
 
 export const usersApi = {
-    getUsers (currentPage: number, pageSize: number) {
+    getUsers(currentPage: number, pageSize: number) {
         return instance.get<GetUsersResponseType<UserType[]>>(`users?page=${currentPage}&count=${pageSize}`)
-        .then(res => res.data)
+            .then(res => res.data)
     },
-    follow (id: number) {
+    follow(id: number) {
         return instance.post<ResponseType>(`follow/${id}`)
-        .then(res => res.data)
+            .then(res => res.data)
     },
-    unfollow (id: number) {
+    unfollow(id: number) {
         return instance.delete<ResponseType>(`follow/${id}`)
-        .then(res => res.data)
+            .then(res => res.data)
     }
 }

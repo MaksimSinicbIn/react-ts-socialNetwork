@@ -1,7 +1,7 @@
 import { Dispatch } from "redux"
 import { AppThunk } from "./redux-store"
 import { profileApi } from "../api/api"
-import { profile } from "console"
+import { stopSubmit } from "redux-form"
 
 export type ProfilePageType = {
     profile: ProfileType
@@ -82,7 +82,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         case 'profile/DELETE-POST':
             return { ...state, posts: state.posts.filter(p => p.id !== action.postId) };
         case 'profile/SAVE-PHOTO':
-            return { ...state, profile: {...state.profile, photos: action.photos} };
+            return { ...state, profile: { ...state.profile, photos: action.photos } };
         case 'profile/SET-USER-PROFILE':
             return { ...state, profile: action.profile };
         case 'profile/SET-USER-STATUS':
@@ -134,5 +134,16 @@ export const savePhoto = (file: File): AppThunk => async (dispatch: Dispatch) =>
     const data = await profileApi.savePhoto(file)
     if (data.resultCode === 0) {
         dispatch(savePhotoSuccess(data.data))
+    }
+}
+
+export const saveProfile = (profile: ProfileType): AppThunk => async (dispatch, getState) => {
+    const userId = getState().auth.id
+    const data = await profileApi.saveProfile(profile)
+    if (data.resultCode === 0) {
+        dispatch(getUserProfile(userId as any))
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: data.messages[0]}))
+        return Promise.reject(data.messages[0])
     }
 }

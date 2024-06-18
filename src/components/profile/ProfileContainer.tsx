@@ -2,7 +2,7 @@ import React, { ComponentType } from "react"
 import { Profile } from "./Profile";
 import { AppRootStateType } from "../../redux/redux-store";
 import { connect } from "react-redux";
-import { PhotoType, ProfileType, getUserProfile, getUserStatus, savePhoto, updateUserStatus } from "../../redux/profile-reducer";
+import { ProfileType, getUserProfile, getUserStatus, savePhoto, saveProfile, updateUserStatus } from "../../redux/profile-reducer";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
@@ -27,7 +27,7 @@ class ProfileContainer extends React.Component<PropsType, any> {
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<any>, snapshot?: any): void {
         if (this.props.match.params.userId !== prevProps.match.params.userId)
-        this.refreshProfile()
+            this.refreshProfile()
     }
 
     render() {
@@ -39,6 +39,7 @@ class ProfileContainer extends React.Component<PropsType, any> {
                 updateUserStatus={this.props.updateUserStatus}
                 isOwner={!this.props.match.params.userId}
                 savePhoto={this.props.savePhoto}
+                saveProfile={this.props.saveProfile}
             />
         )
     }
@@ -60,6 +61,7 @@ type MapDispatchToPropsType = {
     getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
     savePhoto: (photos: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
 }
 
 export type ProfilePagePropsType = MapStatePropsType & MapDispatchToPropsType
@@ -76,7 +78,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto }),
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
