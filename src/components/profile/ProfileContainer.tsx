@@ -78,7 +78,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile}),
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile }),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

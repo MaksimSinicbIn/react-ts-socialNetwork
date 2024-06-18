@@ -1,9 +1,8 @@
 import s from './ProfileInfo.module.css';
+import style from '../../common/formsControl/FormsControl.module.css'
 import { InjectedFormProps, reduxForm } from "redux-form"
 import { ProfileType } from "../../../redux/profile-reducer"
 import { Input, Textarea, createField } from "../../common/formsControl/FormsControl"
-import style from '../../common/formsControl/FormsControl.module.css'
-
 
 type PropsType = {
     profile: ProfileType
@@ -29,7 +28,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }: InjectedFormProps<Pro
             <div>
                 <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
                     return <div key={key}>
-                        <b>{key}: {createField(key, 'contacts.' + key, [], Input)}</b> 
+                        <b>{key}: {createField(key, 'contacts.' + key, [], Input)}</b>
                     </div>
                 })}
             </div>
@@ -37,6 +36,6 @@ const ProfileDataForm = ({ handleSubmit, profile, error }: InjectedFormProps<Pro
     )
 }
 
-const ProfileDataFormReduxForm = reduxForm<ProfileType, PropsType>({form: 'edit-profile'}) (ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm<ProfileType, PropsType>({ form: 'edit-profile' })(ProfileDataForm)
 
 export default ProfileDataFormReduxForm;

@@ -41,8 +41,8 @@ export const authMeApi = {
         return instance.get<ResponseType<AuthMeApiType>>(`auth/me`)
             .then(res => res.data)
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post<ResponseType<{ id: number }>>(`auth/login`, { email, password, rememberMe })
+    login(email: string, password: string, rememberMe: boolean = false, captchaUrl: string | null = null) {
+        return instance.post<ResponseType<{ id: number }>>(`auth/login`, { email, password, rememberMe, captchaUrl })
             .then(res => res.data)
     },
     logOut() {
@@ -88,6 +88,13 @@ export const usersApi = {
     },
     unfollow(id: number) {
         return instance.delete<ResponseType>(`follow/${id}`)
+            .then(res => res.data)
+    }
+}
+
+export const securityApi = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`)
             .then(res => res.data)
     }
 }

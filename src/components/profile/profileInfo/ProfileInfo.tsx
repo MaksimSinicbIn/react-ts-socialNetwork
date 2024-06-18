@@ -45,7 +45,7 @@ export const ProfileInfo = ({ profile, status, isOwner, updateUserStatus, savePh
                 {isOwner && <input type='file' onChange={onMainPhotoSelected} />}
                 {
                     editMode
-                        ? <ProfileDataFormReduxForm initialValues={profile  } profile={profile} onSubmit={onSubmit}/>
+                        ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
                         : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)} />
                 }
                 <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus} />
@@ -87,8 +87,6 @@ const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataPropsType) =
         </div>
     )
 }
-
-
 
 type PropsType = {
     contactTitle: string
