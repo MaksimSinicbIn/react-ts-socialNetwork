@@ -1,6 +1,6 @@
-import React, { ComponentType, Suspense } from 'react';
+import React, { ComponentType } from 'react';
 import './App.css';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { HashRouter, Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { Provider, connect } from 'react-redux';
 import { initializeApp } from './redux/app-reducer';
@@ -70,11 +70,11 @@ const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps,
 
 const SocialNetworkApp = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

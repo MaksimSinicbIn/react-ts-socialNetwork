@@ -2,12 +2,20 @@ import React from 'react';
 import s from './Profile.module.css';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
 import { MyPostsContainer } from './myPosts/MyPostsContainer';
-import { ProfilePagePropsType } from './ProfileContainer';
+import { ProfileType } from '../../redux/profile-reducer';
 
-export const Profile = (state: ProfilePagePropsType) => {
+type PropsType = {
+    profile: ProfileType
+    status: string
+    isOwner: boolean
+    updateUserStatus: (status: string) => void
+    savePhoto: (photos: File) => void
+}
+
+export const Profile = ({ profile, status, isOwner, updateUserStatus, savePhoto }: PropsType) => {
     return (
         <div>
-            <ProfileInfo profile={state.profile} status={state.status} updateUserStatus={state.updateUserStatus}/>
+            <ProfileInfo profile={profile} status={status} updateUserStatus={updateUserStatus} isOwner={isOwner} savePhoto={savePhoto}/>
             <MyPostsContainer />
         </div>
     );

@@ -4,3 +4,8 @@
     object-fit: cover;
     border-radius: 20px;
 }
+
+.mainPhoto {
+    max-width: 150px;
+    max-height: 150px;
+}
