@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react';
 import './App.css';
-import { HashRouter, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { Provider, connect } from 'react-redux';
 import { initializeApp } from './redux/app-reducer';
@@ -20,9 +20,19 @@ const ProfileContainer = React.lazy(() => import('./components/profile/ProfileCo
 const UsersContainer = React.lazy(() => import('./components/users/UsersContainer'))
 
 class App extends React.Component<AppPropsType> {
+    
+    catchAllUnhandledError = (promiseRejectionEvent: any) => {
+        alert('Some error occurred')
+        console.error(promiseRejectionEvent)
+    }
 
     componentDidMount(): void {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledError)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledError)
     }
 
     render() {
@@ -35,7 +45,7 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer />
                 <Navbar />
                 <div className="app-wrapper-content">
-                    {/* <Redirect from="/*" to="/profile" /> */}
+                    <Redirect from="/" to="/profile" />
                     <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
                     <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
                     <Route path="/users" render={withSuspense(UsersContainer)} />
@@ -70,11 +80,11 @@ const AppContainer = compose<ComponentType>(withRouter, connect(mapStateToProps,
 
 const SocialNetworkApp = () => {
     return (
-        <HashRouter>
+        <BrowserRouter>
             <Provider store={store}>
                 <AppContainer />
             </Provider>
-        </HashRouter>
+        </BrowserRouter>
     )
 }
 

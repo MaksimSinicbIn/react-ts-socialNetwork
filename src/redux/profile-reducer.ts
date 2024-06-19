@@ -124,9 +124,13 @@ export const getUserStatus = (userId: string): AppThunk => async (dispatch: Disp
 }
 
 export const updateUserStatus = (status: string): AppThunk => async (dispatch: Dispatch) => {
-    const data = await profileApi.updateStatus(status)
-    if (data.resultCode === 0) {
-        dispatch(setUserStatus(status))
+    try {
+        const data = await profileApi.updateStatus(status)
+        if (data.resultCode === 0) {
+            dispatch(setUserStatus(status))
+        }
+    } catch (error) {
+        alert(`Update status error: ${error}`)
     }
 }
 
@@ -143,7 +147,7 @@ export const saveProfile = (profile: ProfileType): AppThunk => async (dispatch, 
     if (data.resultCode === 0) {
         dispatch(getUserProfile(userId as any))
     } else {
-        dispatch(stopSubmit("edit-profile", {_error: data.messages[0]}))
+        dispatch(stopSubmit("edit-profile", { _error: data.messages[0] }))
         return Promise.reject(data.messages[0])
     }
 }
